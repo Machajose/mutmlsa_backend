@@ -31,3 +31,18 @@ export async function getAllApplications() {
   );
   return result.rows;
 }
+
+export async function getPendingApplications() {
+  const result = await pool.query(
+    `SELECT * FROM membership_applications WHERE status = 'pending' ORDER BY created_at DESC`
+  );
+  return result.rows;
+}
+
+export async function markApplicationConfirmed(id) {
+  const result = await pool.query(
+    `UPDATE membership_applications SET status = 'confirmed' WHERE id = $1 RETURNING *`,
+    [id]
+  );
+  return result.rows[0];
+}
