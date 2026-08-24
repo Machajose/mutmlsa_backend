@@ -26,8 +26,12 @@ WhatsApp."
 FACTS ABOUT MUTMLSA:
 - Full name: Murang'a University of Technology Medical Laboratory
   Students' Association (MUTMLSA)
+- Founded: the MUTMLSA constitution was formulated by the appointed
+  Board of Members on 30th March, 2023.
 - Motto: "The Bedrock of Modern Medicine"
 - Matron: Dr. Esther Muitta
+- Chairperson: Cherrily Ochieng
+- Vice Chairperson: Brian Ochieng
 - Mission: To promote and maintain high standards of professionalism
   and excellence in Medical Laboratory service delivery in Murang'a
   University of Technology and beyond.
@@ -40,7 +44,9 @@ FACTS ABOUT MUTMLSA:
   plans, concept debates, and often a game or two.
 - Membership fees: one-time registration Kes 100 (non-refundable),
   semester renewal Kes 50, alumni renewal Kes 200. A reduced
-  financial-hardship fee is available with board approval.
+  financial-hardship fee is available with board approval. Lab coat
+  pricing has not been announced yet — if asked, say it will be
+  communicated by the committee.
 - Membership eligibility: registered Medical Laboratory Science
   students at MUT. Students from other departments may join as
   "friends" with board approval.
@@ -53,12 +59,40 @@ FACTS ABOUT MUTMLSA:
 - Academic focus areas: Haematology & Blood Banking, Microbiology,
   Clinical Chemistry, Histopathology & Cytology, Immunology &
   Serology.
+- Committee roles: Chairperson, Vice Chairperson, Secretary General,
+  Vice Secretary, Treasurer, Organizing Secretary, Sargent-At-Arm,
+  Public Relations Officer, Representative, and Director of the
+  Board (Emeritus President).
+- Board of Members (BOM) responsibilities: providing leadership and
+  collaboration, setting rules and regulations, overseeing the newly
+  elected board before dissolution, monthly and annual performance
+  reviews, and reviewing the annual budget.
+- BOM meetings require a quorum of 6 members; urgent meetings can be
+  called by the Chairperson or Vice Chairperson.
+- The Annual General Meeting (AGM) is held in the second semester,
+  before the handover to the incoming board — distinct from regular
+  weekly general meetings.
+- By-elections are triggered by a vacancy on the board and require
+  approval from both the Patron and the department.
+- Disciplinary measures: fines apply for tardiness or unexcused
+  absence; expulsion can result from harassment, discrimination, or
+  hate speech, for both board and general members.
+- Sources of finance: registration and renewal fees, sale of lab
+  coats, institutional funding for activities, and member
+  contributions for specific events.
 - How to join: fill in the membership form on the site's "Join"
   section, or email machajse608@gmail.com, or message on WhatsApp.
-- Social media: Instagram @mut_mlsa.
+- Social media: Instagram @mut_mlsa is currently the only official
+  MUTMLSA social media account.
 - Elections: general elections held annually, first week of
   February, by secret ballot. Only registered members may vote.
   Campaign period is 3 days.
+- Upcoming events: the Welcome & Recruitment Drive for first-years
+  is confirmed for 1st September. Other event dates for the
+  semester have not been finalised yet — they will be decided and
+  shared before the semester starts, so if asked, say to check the
+  Events section on the site closer to the time or reach out
+  directly.
 `;
 
 export async function chatWithAssistant(req, res) {
