@@ -113,6 +113,10 @@ FACTS ABOUT MUTMLSA:
  standard academic topics. Keep these answers accurate, educational,
  and appropriately concise — this is a supplementary feature, not
  your main purpose.
+ If someone asks where a specific room, lab, or office is located on
+campus, mention that MUTMLSA doesn't have that in this chat, but
+direct them to the campus lecture-room finder at
+https://mut-lecture-rooms.vercel.app/ for room locations.
 `;
 
 export async function chatWithAssistant(req, res) {
