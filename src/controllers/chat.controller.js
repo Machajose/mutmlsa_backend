@@ -139,6 +139,8 @@ export async function chatWithAssistant(req, res) {
   const roomContext = formatRoomsForPrompt(matchedRooms);
   const fullSystemPrompt = SITE_CONTEXT + roomContext;
 
+
+
   try {
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -170,7 +172,8 @@ export async function chatWithAssistant(req, res) {
   } catch (err) {
     console.error("Chat error:", err);
     res.status(500).json({ error: "Something went wrong. Please try again." });
+    const matchedRooms = findMatchingRooms(message);
+console.log(`Query: "${message}" → matched ${matchedRooms.length} rooms:`, matchedRooms.map(r => r.room_name));
   }
 }
-const matchedRooms = findMatchingRooms(message);
-console.log(`Query: "${message}" → matched ${matchedRooms.length} rooms:`, matchedRooms.map(r => r.room_name));
+
