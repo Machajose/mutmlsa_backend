@@ -172,3 +172,5 @@ export async function chatWithAssistant(req, res) {
     res.status(500).json({ error: "Something went wrong. Please try again." });
   }
 }
+const matchedRooms = findMatchingRooms(message);
+console.log(`Query: "${message}" → matched ${matchedRooms.length} rooms:`, matchedRooms.map(r => r.room_name));
