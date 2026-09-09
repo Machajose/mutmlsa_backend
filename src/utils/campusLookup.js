@@ -19,9 +19,12 @@ const LOCATION_TRIGGER_WORDS = [
   "located", "location", "find", "hall", "block", "gate",
   "hostel", "library", "workshop",
 ];
+const STOPWORDS = new Set([
+  "the", "is", "are", "was", "were", "in", "on", "at", "of", "and",
+  "to", "for", "with", "this", "that", "it", "can", "you", "me",
+  "please", "find", "tell", "about", "what", "which", "does",
+]);
 
-// Very lightweight keyword search — checks if the message mentions
-// location-ish words, then matches against room_name/building text.
 export function findMatchingRooms(message, maxResults = 5) {
   if (!rooms.length) return [];
 
@@ -31,17 +34,26 @@ export function findMatchingRooms(message, maxResults = 5) {
   );
   if (!looksLikeLocationQuestion) return [];
 
-  // Pull out meaningful words from the message (skip tiny/common ones)
   const words = lower
     .replace(/[^a-z0-9\s]/g, " ")
     .split(/\s+/)
-    .filter((w) => w.length > 2);
+    .filter((w) => w.length > 2 && !STOPWORDS.has(w));
 
   const scored = rooms.map((room) => {
-    const haystack = `${room.room_name} ${room.building} ${room.category}`.toLowerCase();
+    const haystackWords = `${room.room_name} ${room.building} ${room.category}`
+      .toLowerCase()
+      .split(/\s+/);
+
     let score = 0;
     for (const w of words) {
-      if (haystack.includes(w)) score += 1;
+      if (haystackWords.some((hw) => hw === w || hw.startsWith(w))) {
+        score += 1;
+      }
+      // Bonus: exact/prefix match directly in room_name counts extra —
+      // makes "library" strongly favor the room actually named Library.
+      if (room.room_name.toLowerCase().includes(w)) {
+        score += 2;
+      }
     }
     return { room, score };
   });
