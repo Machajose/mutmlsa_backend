@@ -1,6 +1,8 @@
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
+import { findMatchingRooms, formatRoomsForPrompt } from "../utils/campusLookup.js";
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const roomsPath = path.join(__dirname, "../data/campusRooms.json");

@@ -116,10 +116,10 @@ FACTS ABOUT MUTMLSA:
  and appropriately concise — this is a supplementary feature, not
  your main purpose.
  If someone asks where a specific room, lab, building, or office is
-located on campus, use any campus location data provided below the
-main facts (if present) to answer directly. If no matching location
-data is provided, direct them to the campus lecture-room finder at
-https://mut-lecture-rooms.vercel.app/ for the full interactive map.
+ located on campus, use any campus location data provided below the
+ main facts (if present) to answer directly. If no matching location
+ data is provided, direct them to the campus lecture-room finder at
+ https://mut-lecture-rooms.vercel.app/ for the full interactive map.
 `;
 
 export async function chatWithAssistant(req, res) {
