@@ -68,15 +68,73 @@ export function findMatchingRooms(message, maxResults = 5) {
 export function formatRoomsForPrompt(matchedRooms) {
   if (!matchedRooms.length) return "";
 
-  const lines = matchedRooms.map(
-    (r) =>
-      `- ${r.room_name} — in ${r.building}, floor ${r.floor}${
-        r.category ? ` (${r.category})` : ""
-      }`
-  );
+  const lines = matchedRooms.map((r) => {
+    const direction = describeDirection(r);
+    return `- ${r.room_name} — in ${r.building}, floor ${r.floor}${
+      r.category ? ` (${r.category})` : ""
+    }.${direction}`;
+  });
 
   return `\n\nRELEVANT CAMPUS LOCATIONS (from the campus room finder, use only if genuinely relevant to the question):\n${lines.join(
     "\n"
   )}\n\nFor a full interactive map with directions, point the person to: https://mut-lecture-rooms.vercel.app/`;
 }
-console.log(`Loaded ${rooms.length} campus rooms from ${roomsPath}`);
+
+// Compass bearing from point A to point B, in degrees (0=N, 90=E, 180=S, 270=W)
+function bearingBetween(lat1, lon1, lat2, lon2) {
+  const toRad = (d) => (d * Math.PI) / 180;
+  const dLon = toRad(lon2 - lon1);
+  const y = Math.sin(dLon) * Math.cos(toRad(lat2));
+  const x =
+    Math.cos(toRad(lat1)) * Math.sin(toRad(lat2)) -
+    Math.sin(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.cos(dLon);
+  return (Math.atan2(y, x) * 180) / Math.PI + 360 % 360;
+}
+
+function bearingToCompass(bearing) {
+  const directions = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"];
+  return directions[Math.round(bearing / 45) % 8];
+}
+
+// Rough distance in meters (haversine) — used to find the nearest landmark
+function distanceMeters(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const toRad = (d) => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// Finds the closest other distinct room/building to use as a landmark
+function findNearestLandmark(targetRoom) {
+  let nearest = null;
+  let minDist = Infinity;
+
+  for (const room of rooms) {
+    if (room.room_id === targetRoom.room_id) continue;
+    if (room.building === targetRoom.building) continue; // skip same building
+    if (typeof room.lat !== "number" || typeof room.lon !== "number") continue;
+
+    const dist = distanceMeters(targetRoom.lat, targetRoom.lon, room.lat, room.lon);
+    if (dist < minDist) {
+      minDist = dist;
+      nearest = room;
+    }
+  }
+  return nearest;
+}
+
+export function describeDirection(room) {
+  if (typeof room.lat !== "number" || typeof room.lon !== "number") return "";
+
+  const landmark = findNearestLandmark(room);
+  if (!landmark) return "";
+
+  const bearing = bearingBetween(landmark.lat, landmark.lon, room.lat, room.lon);
+  const compass = bearingToCompass(bearing);
+
+  return ` It's ${compass} of ${landmark.building || landmark.room_name}, close to ${landmark.room_name}.`;
+}
