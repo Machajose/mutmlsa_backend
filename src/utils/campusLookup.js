@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
-import { findMatchingRooms, formatRoomsForPrompt } from "../utils/campusLookup.js";
+
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -67,3 +67,4 @@ export function formatRoomsForPrompt(matchedRooms) {
     "\n"
   )}\n\nFor a full interactive map with directions, point the person to: https://mut-lecture-rooms.vercel.app/`;
 }
+console.log(`Loaded ${rooms.length} campus rooms from ${roomsPath}`);
