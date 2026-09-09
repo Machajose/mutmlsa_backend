@@ -1,3 +1,5 @@
+import { findMatchingRooms, formatRoomsForPrompt } from "../utils/campusLookup.js";
+
 // Uses the Groq API (OpenAI-compatible chat completions format).
 // Requires GROQ_API_KEY in your .env.
 const SITE_CONTEXT = `
@@ -113,9 +115,63 @@ FACTS ABOUT MUTMLSA:
  standard academic topics. Keep these answers accurate, educational,
  and appropriately concise — this is a supplementary feature, not
  your main purpose.
- If someone asks where a specific room, lab, or office is located on campus, mention that MUTMLSA doesn't have that in this chat, but direct them to the <a href="https://mut-lecture-rooms.vercel.app/">campus lecture-room finder</a> for room locations.
+ If someone asks where a specific room, lab, building, or office is
+located on campus, use any campus location data provided below the
+main facts (if present) to answer directly. If no matching location
+data is provided, direct them to the campus lecture-room finder at
+https://mut-lecture-rooms.vercel.app/ for the full interactive map.
 `;
 
+export async function chatWithAssistant(req, res) {
+  const { message, history = [] } = req.body;
+
+  if (!message || typeof message !== "string") {
+    return res.status(400).json({ error: "A message is required." });
+  }
+
+  if (!process.env.GROQ_API_KEY) {
+    return res.status(500).json({ error: "Chat assistant isn't configured yet." });
+  }
+
+  // Only pulls in campus location data when the message actually looks
+  // like a location question — keeps normal FAQ messages cheap and fast.
+  const matchedRooms = findMatchingRooms(message);
+  const roomContext = formatRoomsForPrompt(matchedRooms);
+  const fullSystemPrompt = SITE_CONTEXT + roomContext;
+
+  try {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-oss-120b",
+        max_tokens: 400,
+        messages: [
+          { role: "system", content: fullSystemPrompt },
+          ...history.slice(-6).map((m) => ({ role: m.role, content: m.content })),
+          { role: "user", content: message },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error("Groq API error:", errText);
+      return res.status(502).json({ error: "The assistant is unavailable right now." });
+    }
+
+    const data = await response.json();
+    const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't come up with an answer.";
+
+    res.json({ reply });
+  } catch (err) {
+    console.error("Chat error:", err);
+    res.status(500).json({ error: "Something went wrong. Please try again." });
+  }
+}
 export async function chatWithAssistant(req, res) {
   const { message, history = [] } = req.body;
 

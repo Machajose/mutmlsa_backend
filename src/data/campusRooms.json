@@ -1,0 +1,2907 @@
+[
+  {
+    "room_id": 1,
+    "room_name": "Hospitality Store",
+    "category":"office",
+    "building": " School of Hospitality and Tourism Management",
+    "floor": "G",
+    "lat": -0.716201102072584,
+    "lon": 37.1475795004628,
+    "images": [
+   
+      "assets/imgs/Room_7_and_8.png",
+      "assets/imgs/School_of_hospitality_and_tourism_management.png",
+      "assets/imgs/School_of_hospitality_and_tourism_management2.png",
+      "assets/imgs/Electronics_lab.png"
+    ]
+  },
+  {
+    "room_id": 2,
+    "room_name": "3D lab",
+    "category":"lab",
+    "building": "3D lab",
+    "floor": 1,
+    "lat": -0.716428605927705,
+    "lon": 37.1494282910078,
+    "images": [
+    
+      "assets/imgs/3D_lab_2.png",
+      "assets/imgs/3D_lab_front.png",
+       "assets/imgs/3D_lab_back.png",
+        "assets/imgs/3D_lab_left.png"
+     
+    ]
+  },
+  {
+    "room_id": 3,
+    "room_name": "Administator , Department of Education and Technnology",
+    "category":"office",
+    "building": "School of Education , Humanities and Social Sciences",
+    "floor": "G",
+    "lat": -0.715441693829537,
+    "lon": 37.147768698456,
+    "images": [
+      "assets/imgs/School_of_education_humanities_and_social_sciences.png",
+      "assets/imgs/School_of_education_humanities_and_social_sciences2.png",
+      "assets/imgs/School_of_business_and_economics_side3.png",
+      "assets/imgs/School_of_education_humanities_and_social_sciences2.png"
+    ]
+  },
+  {
+    "room_id": 4,
+    "room_name": "Administator , Department of humanities and social sciences",
+    "category":"office",
+    "building": "School of Education , Humanities and Social Sciences",
+    "floor": 1,
+    "lat": -0.715441693829537,
+    "lon": 37.147768698456,
+    "images": [
+      "assets/imgs/School_of_education_humanities_and_social_sciences.png",
+      "assets/imgs/School_of_education_humanities_and_social_sciences2.png",
+      "assets/imgs/School_of_business_and_economics_side3.png",
+      "assets/imgs/School_of_education_humanities_and_social_sciences2.png"
+      
+    ]
+  },
+  {
+    "room_id": 5,
+    "room_name": "Analytical laboratory",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 1,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+      "assets/imgs/Science_laboratory_front.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 6,
+    "room_name": "Assembly Hall",
+    "category":"lecture_room",
+    "building": "Assembly Hall",
+    "floor": "G",
+    "lat": -0.715897766403863,
+    "lon": 37.1470923211146,
+    "images": [
+      "assets/imgs/Assembly_hall.png",
+      "assets/imgs/Assembly_hall_2.png",
+      "assets/imgs/Kitchen.png",
+      "assets/imgs/Dining_hall_front.png"
+    ]
+  },
+  {
+    "room_id": 7,
+    "room_name": "Blood Transfusion Lab",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 2,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 8,
+    "room_name": "Botany laboratory ",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": "G",
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 9,
+    "room_name": "BTS",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 2,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+       "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+
+    ]
+  },
+  {
+    "room_id": 10,
+    "room_name": "Building Department",
+    "category":"lecture_room",
+    "building": "Building Department",
+    "floor": "G",
+    "lat": -0.716324300633127,
+    "lon": 37.1497677838636,
+    "images": [
+      "assets/imgs/Building_department_1.png",
+      "assets/imgs/Building_department_2.png",
+      "assets/imgs/Building_department.png",
+         "assets/imgs/Building_department_2.png"
+    ]
+  },
+  {
+    "room_id": 11,
+    "room_name": "CA Office",
+    "category":"office",
+    "building": "CA Office",
+    "floor": "G",
+    "lat": -0.716431450619158,
+    "lon": 37.1483623972125,
+    "images": [
+      "assets/imgs/Room_23.png",
+      "assets/imgs/Room_22_and_21.png"
+    ]
+  },
+  {
+    "room_id": 12,
+    "room_name": "Chemistry laboratory 1",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 1,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 13,
+    "room_name": "Chemistry laboratory 2",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 1,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 14,
+    "room_name": "Christian Union Office",
+    "category":"office",
+    "building": "Assembly Hall",
+    "floor": 1,
+    "lat": -0.715897766403863,
+    "lon": 37.1470923211146,
+    "images": [
+      "assets/imgs/Assembly_hall.png",
+      "assets/imgs/Assembly_hall_2.png",
+      "assets/imgs/Assembly_hall_3.png",
+      "assets/imgs/Dining_hall_side.png"
+
+    ]
+  },
+  {
+    "room_id": 15,
+    "room_name": "Clinical/Biochemistry laboratory ",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 1,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 16,
+    "room_name": "COD, Building and Civil  Enginering",
+    "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_offices.png",
+       "assets/imgs/Library_back_left.png",
+       "assets/imgs/Library_front.png",
+      "assets/imgs/Library_back_left.png"
+    ]
+  },
+  {
+    "room_id": 17,
+    "room_name": "COD ,Electrical and Electronic Enginering",
+    "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_offices.png",
+      "assets/imgs/Library_back_left.png",
+      "assets/imgs/Library_front.png",
+      "assets/imgs/Library_back_left.png"
+    ]
+  },
+  {
+    "room_id": 18,
+    "room_name": "COD, Depterment of Mathematics and Actuarial science",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 1,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_complex_front.png",
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png"
+       
+       
+    ]
+  },
+  {
+    "room_id": 19,
+    "room_name": "COD, Depterment of Medical Laborotary sciences",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 1,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 20,
+    "room_name": "COD, Depterment of Physical and Biological Sciences",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 1,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 21,
+    "room_name": "COD, Humanities ",
+    "category":"office",
+    "building": "School of Education , Humanities and Social Sciences",
+    "floor": 1,
+    "lat": -0.715441693829537,
+    "lon": 37.147768698456,
+    "images": [
+      "assets/imgs/School_of_education_humanities_and_social_sciences.png",
+      "assets/imgs/School_of_education_humanities_and_social_sciences2.png",
+      "assets/imgs/School_of_business_and_economics_side3.png",
+      "assets/imgs/School_of_education_humanities_and_social_sciences2.png"
+    ]
+  },
+  {
+    "room_id": 22,
+    "room_name": "COD. Hospitalty Management",
+    "category":"office",
+    "building": " School of Hospitality and Tourism Management",
+    "floor": "G",
+    "lat": -0.716201102072584,
+    "lon": 37.1475795004628,
+    "images": [
+      
+      "assets/imgs/School_of_hospitality_and_tourism_management.png",
+      "assets/imgs/School_of_hospitality_and_tourism_management2.png",
+      "assets/imgs/Electronics_lab.png",
+      "assets/imgs/Room_7_and_8.png"
+
+    ]
+  },
+  {
+    "room_id": 23,
+    "room_name": "Council Boardroom",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 5,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+       "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 24,
+    "room_name": "Council Chambers",
+    "category":"office",
+    "floor": 5,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+       "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 25,
+    "room_name": "Crime Scene Laboratory",
+    "category":"lab",
+    "building": "Crime Scene Laboratory",
+    "floor": "G",
+    "lat": -0.715776737008317,
+    "lon": 37.1468051471196,
+    "images": [
+      "assets/imgs/M2_and_m3_rooms.png",
+      "assets/imgs/M2_room.png",
+      "assets/imgs/entrance_room_m2.png",
+        "assets/imgs/M2_room.png"
+
+    
+     
+    ]
+  },
+  {
+    "room_id": 26,
+    "room_name": "Dean of school of computing and Information Technology",
+    "category":"office",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": 1,
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+      "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+      
+    ]
+  },
+  {
+    "room_id": 27,
+    "room_name": "Dean of School of Education , Humanities and Social Sciences",
+    "category":"office",
+    "building": "School of Education , Humanities and Social Sciences",
+    "floor": 1,
+    "lat": -0.715441693829537,
+    "lon": 37.147768698456,
+    "images": [
+      "assets/imgs/School_of_education_humanities_and_social_sciences.png",
+      "assets/imgs/School_of_education_humanities_and_social_sciences2.png"
+    ]
+  },
+  {
+    "room_id": 28,
+    "room_name": "Dean, School of pure ,Applied and Health Sciences",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 1,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 29,
+    "room_name": "Department of Computer Science",
+    "category":"office",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": 1,
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+     "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 30,
+    "room_name": "Department of IT",
+    "category":"office",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": "G",
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+     "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 31,
+    "room_name": "Deputy Registrar ( Academic, Research and Student Affairs)",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 3,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 32,
+    "room_name": "Deputy Vice Chancellor ( Academic, Research and Student Affairs)",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 4,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 33,
+    "room_name": "Deputy Vice Chancellor ( Finance, Planning and Development)",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 4,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_Complex1.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 34,
+    "room_name": "DH3A",
+    "category":"lecture_room",
+    "building": "MOUNT KENYA Hostel",
+    "floor": "Basement",
+    "lat": -0.715729657005756,
+    "lon": 37.150535786756,
+    "images": [
+      "assets/imgs/Manyotta1.png",
+      "assets/imgs/Manyotta2.png",
+      "assets/imgs/Manyotta4.png",
+      "assets/imgs/Manyotta3.png"
+    
+    ]
+  },
+  {
+    "room_id": 35,
+    "room_name": "DH3B",
+    "category":"lecture_room",
+    "building": "MOUNT KENYA Hostel",
+    "floor": "Basement",
+    "lat": -0.715729657005756,
+    "lon": 37.150535786756,
+    "images": [
+        "assets/imgs/Manyotta1.png",
+      "assets/imgs/Manyotta2.png",
+      "assets/imgs/Manyotta4.png",
+      "assets/imgs/Manyotta3.png"
+    
+    ]
+  },
+  {
+    "room_id": 36,
+    "room_name": "DH4A",
+    "category":"lecture_room",
+    "building": "MOUNT KENYA Hostel",
+    "floor": "Basement",
+    "lat": -0.715729657005756,
+    "lon": 37.150535786756,
+    "images": [
+        "assets/imgs/Manyotta1.png",
+      "assets/imgs/Manyotta2.png",
+      "assets/imgs/Manyotta4.png",
+      "assets/imgs/Manyotta3.png"
+    
+    ]
+  },
+  {
+    "room_id": 37,
+    "room_name": "DH4B",
+    "category":"lecture_room",
+    "building": "MOUNT KENYA Hostel",
+    "floor": "Basement",
+    "lat": -0.715729657005756,
+    "lon": 37.150535786756,
+    "images": [
+       "assets/imgs/Manyotta1.png",
+      "assets/imgs/Manyotta2.png",
+      "assets/imgs/Manyotta4.png",
+      "assets/imgs/Manyotta3.png"
+    ]
+  },
+  {
+    "room_id": 38,
+    "room_name": "Dinning Hall",
+    "category":"",
+    "building": "Dinning Hall",
+    "floor": "G",
+    "lat": -0.7161379541269,
+    "lon": 37.1471904336197,
+    "images": [
+       "assets/imgs/Kitchens.png",
+      "assets/imgs/Dining_hall_front.png",
+      "assets/imgs/Dining_hall_side.png",
+      "assets/imgs/Kitchens.png"
+    ]
+  },
+  {
+    "room_id": 39,
+    "room_name": "Director, Gender and Disability Mainstream Studies",
+    "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_offices.png",
+      "assets/imgs/Library_back_left.png",
+      "assets/imgs/Library_front.png",
+      "assets/imgs/Library_back_left.png"
+
+    ]
+  },
+  {
+    "room_id": 40,
+    "room_name": "Directorate Offices",
+    "category":"office",
+    "building": "Directorate Building",
+    "floor": "All",
+    "lat": -0.715721854257479,
+    "lon": 37.1472513310437,
+    "images": [
+      "assets/imgs/Directory_block_front.png",
+      "assets/imgs/Directory_block_office_side.png",
+      "assets/imgs/Directory_office_side.png",
+      "assets/imgs/Directory_office_side_2.png"
+    ]
+  },
+  {
+    "room_id": 41,
+    "room_name": "Electrical and Electronics Enginering Workshop",
+    "category":"lecture_room",
+    "building": "Electrical and Electronics Enginering Workshop",
+    "floor": "G",
+    "lat": -0.716308180723417,
+    "lon": 37.1489285347568,
+    "images": [
+      "assets/imgs/Electricity_and_electronic_Workshop_frontview.png",
+      "assets/imgs/Electricity_and_electronic_workshop_1.png",
+      "assets/imgs/Electricity_and_electronics_workshop.png"
+    ]
+  },
+  {
+    "room_id": 42,
+    "room_name": "Electronics laboratory",
+    "category":"lab",
+    "building": "Electronics laboratory",
+    "floor": "G",
+    "lat": -0.716172911026324,
+    "lon": 37.1476888902673,
+    "images": [
+      "assets/imgs/Electronics_lab.png"
+    ]
+  },
+  {
+    "room_id": 43,
+    "room_name": "Electronics laboratory/LR 17",
+    "category":"lab",
+    "building": "Electronics laboratory",
+    "floor": "G",
+    "lat": -0.715989028187244,
+    "lon": 37.1481808398834,
+    "images": [
+      "assets/imgs/Electricity_and_electronic_laboratory.png",
+      "assets/imgs/Electricity_and_electronic_laboratory_1.png",
+      "assets/imgs/Electricity_and_electronics_workshop.png"
+      
+    ]
+  },
+  {
+    "room_id": 44,
+    "room_name": "ERP Support",
+    "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_offices.png",
+      "assets/imgs/Library_back_left.png",
+      "assets/imgs/Library_front.png"
+       
+
+    ]
+  },
+  {
+    "room_id": 45,
+    "room_name": "Examination Office",
+    "category":"office",
+    "building": "Examination Office",
+    "floor": 1,
+    "lat": -0.716080444390893,
+    "lon": 37.1474757493042,
+    "images": [
+      
+      "assets/imgs/Examination_office.png",
+      "assets/imgs/Examination_office_1.png",
+      "assets/imgs/Examinations_office_2.png"
+    ]
+  },
+  {
+    "room_id": 46,
+    "room_name": "F3",
+    "category":"lecture_room",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": 1,
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+      "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 47,
+    "room_name": "F4",
+    "category":"lecture_room",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": 1,
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+     "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 48,
+    "room_name": "Finance Department",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 3,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 49,
+    "room_name": "Finance Office",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 3,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 50,
+    "room_name": "Forensics laboratory",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 2,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+      "assets/imgs/Science_laboratory_front.png"
+    ]
+  },
+  {
+    "room_id": 51,
+    "room_name": "G1",
+    "category":"lecture_room",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": "G",
+    "lat": -0.71605490565446,
+    "lon": 37.1494023368553,
+    "images": [
+      "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 52,
+    "room_name": "G2",
+    "category":"lecture_room",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": "G",
+    "lat": -0.71605490565446,
+    "lon": 37.1494023368553,
+    "images": [
+     "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 53,
+    "room_name": "G4",
+    "category":"lecture_room",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": "G",
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+      "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 54,
+    "room_name": "G5",
+    "category":"lecture_room",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": "G",
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+     "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 55,
+    "room_name": "G6",
+    "category":"lecture_room",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": "G",
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+      "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 56,
+    "room_name": "Gender and Disability Mainstream Department",
+    "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  },
+  {
+    "room_id": 57,
+    "room_name": "Guidance and counselling",
+    "category":"office",
+    "building": "Mechanical Work Shop 2",
+    "floor": 1,
+    "lat": -0.716471276274463,
+    "lon": 37.1490195719472,
+    "images": [
+      "assets/imgs/Mechanical_workshop_1.png",
+      "assets/imgs/Guidance_and_counsel.png"
+      
+    ]
+  },
+  {
+    "room_id": 58,
+    "room_name": "Health Unit",
+    "category":"",
+    "building": "Health Unit",
+    "floor": "G",
+    "lat": -0.715642843822467,
+    "lon": 37.146863452925,
+    "images": [
+      "assets/imgs/Health_unit_4.png",
+      "assets/imgs/Health_unit_3.png",
+      "assets/imgs/Health_unit_5.png",
+      "assets/imgs/Health_unit_2.png"
+    ]
+  },
+  {
+    "room_id": 59,
+    "room_name": "Herbarium",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": "G",
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+      "assets/imgs/Science_laboratory_front.png"
+    ]
+  },
+  {
+    "room_id": 60,
+    "room_name": "Hermtology laboratory",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 2,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 61,
+    "room_name": "House Keeping",
+    "category":"office",
+    "building": "Assembly Hall",
+    "floor": 1,
+    "lat": -0.715897766403863,
+    "lon": 37.1470923211146,
+    "images": [
+      "assets/imgs/Assembly_hall.png",
+      "assets/imgs/Assembly_hall_2.png"
+     
+    ]
+  },
+  {
+    "room_id": 62,
+    "room_name": "Human Resource Registry",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 3,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 63,
+    "room_name": "ICT Directorate",
+    "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_front.png",
+      "assets/imgs/Library_offices.png", 
+      "assets/imgs/Library_back_left.png",
+      "assets/imgs/Library_back_left.png"
+    ]
+  },
+  {
+    "room_id": 64,
+    "room_name": "Internal Audit  Department",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 2,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 65,
+    "room_name": "Interrogation room",
+    "category":"office",
+    "building": "Interrogation room",
+    "floor": "G",
+    "lat": -0.71567213902023,
+    "lon": 37.1467173047809,
+    "images": [
+      
+      "assets/imgs/Interrogation_room.png",
+      "assets/imgs/Interrogation_room_1.png",
+      "assets/imgs/entrance_room_m2.png"
+    ]
+  },
+  {
+    "room_id": 66,
+    "room_name": "kitchen ",
+    "category":"",
+    "building": "kitchen ",
+    "floor": "G",
+    "lat": -0.716238589957847,
+    "lon": 37.147261999763,
+    "images": [
+      "assets/imgs/Kitchen.png",
+      "assets/imgs/Kitchen_2.png",
+      "assets/imgs/Kitchens.png"
+    ]
+  },
+  {
+    "room_id": 67,
+    "room_name": "Lecture Room 6",
+    "category":"lecture_room",
+    "building": " School of Hospitality and Tourism Management",
+    "floor": "G",
+    "lat": -0.716201102072584,
+    "lon": 37.1475795004628,
+    "images": [
+      "assets/imgs/School_of_hospitality_and_tourism_management.png",
+      "assets/imgs/School_of_hospitality_and_tourism_management2.png"
+    ]
+  },
+  {
+    "room_id": 68,
+    "room_name": "Lecture Room 7",
+    "category":"lecture_room",
+    "building": " School of Hospitality and Tourism Management",
+    "floor": 1,
+    "lat": -0.716201102072584,
+    "lon": 37.1475795004628,
+    "images": [
+      "assets/imgs/School_of_hospitality_and_tourism_management.png",
+      "assets/imgs/School_of_hospitality_and_tourism_management2.png"
+    ]
+  },
+  {
+    "room_id": 69,
+    "room_name": "Lecture Room 8",
+    "category":"lecture_room",
+    "building": " School of Hospitality and Tourism Management",
+    "floor": 1,
+    "lat": -0.716201102072584,
+    "lon": 37.1475795004628,
+    "images": [
+      "assets/imgs/Room_7_and_8_1.png",
+      "assets/imgs/Room_7_and_8.png",
+      "assets/imgs/School_of_hospitality_and_tourism_management2.png",
+      "assets/imgs/Electronics_lab.png"
+    ]
+  },
+  {
+    "room_id": 70,
+    "room_name": "Legal Department",
+    "category":"lecture_room",
+    "building": "Science Complex",
+    "floor": 5,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 71,
+    "room_name": "Library",
+    "category":"library",
+    "building": "Library",
+    "floor": "All",
+    "lat": -0.715708322553873,
+    "lon": 37.1475118366605,
+    "images": [
+    
+      "assets/imgs/Library_offices.png",
+       "assets/imgs/Library_back_left.png",
+       "assets/imgs/Library_front.png",
+      "assets/imgs/Library_back_left.png"
+    ]
+  },
+  {
+    "room_id": 72,
+    "room_name": "LR10",
+    "category":"lecture_room",
+    "building": "Diploma",
+    "floor": "G",
+    "lat": -0.71600514809773,
+    "lon": 37.1480139383677,
+    "images": [
+      "assets/imgs/Diploma_class.png",
+      "assets/imgs/Diploma_class_2.png",
+      "assets/imgs/Diploma_class_3.png",
+      "assets/imgs/Diploma_class_4.png"
+    ]
+  },
+  {
+    "room_id": 73,
+    "room_name": "LR12",
+    "category":"lecture_room",
+    "building": "Diploma",
+    "floor": "G",
+    "lat": -0.71600514809773,
+    "lon": 37.1480139383677,
+    "images": [
+      "assets/imgs/Diploma_class.png",
+      "assets/imgs/Diploma_class_2.png",
+      "assets/imgs/Diploma_class_3.png",
+      "assets/imgs/Diploma_class_4.png"
+    ]
+  },
+  {
+    "room_id": 74,
+    "room_name": "LR15",
+    "category":"lecture_room",
+    "building": "Diploma",
+    "floor": "G",
+    "lat": -0.715989028187244,
+    "lon": 37.1481808398834,
+    "images": [
+      "assets/imgs/Diploma_class.png",
+      "assets/imgs/Diploma_class_2.png",
+      "assets/imgs/Diploma_class_3.png",
+      "assets/imgs/Diploma_class_4.png"
+    ]
+  },
+  {
+    "room_id": 75,
+    "room_name": "LR6",
+    "category":"lecture_room",
+    "building": "Diploma",
+    "floor": "G",
+    "lat": -0.715989028187244,
+    "lon": 37.1481808398834,
+    "images": [
+      "assets/imgs/Diploma_class.png",
+      "assets/imgs/Diploma_class_2.png",
+      "assets/imgs/Diploma_class_3.png",
+      "assets/imgs/Diploma_class_4.png"
+    ]
+  },
+  {
+    "room_id": 76,
+    "room_name": "LR7",
+    "category":"lecture_room",
+    "building": "Diploma",
+    "floor": "G",
+    "lat": -0.715989028187244,
+    "lon": 37.1481808398834,
+    "images": [
+      "assets/imgs/Diploma_class.png",
+      "assets/imgs/Diploma_class_2.png",
+      "assets/imgs/Diploma_class_3.png",
+      "assets/imgs/Diploma_class_4.png"
+    ]
+  },
+  {
+    "room_id": 77,
+    "room_name": "LR9",
+    "category":"lecture_room",
+    "building": "Diploma",
+    "floor": "G",
+    "lat": -0.71600514809773,
+    "lon": 37.1480139383677,
+    "images": [
+      "assets/imgs/Diploma_class.png",
+      "assets/imgs/Diploma_class_2.png",
+      "assets/imgs/Diploma_class_3.png",
+      "assets/imgs/Diploma_class_4.png"
+    ]
+  },
+  {
+    "room_id": 78,
+    "room_name": "M2",
+    "category":"lecture_room",
+    "building": "M2",
+    "floor": "G",
+    "lat": -0.715755378182724,
+    "lon": 37.1467534236978,
+    "images": [
+       "assets/imgs/entrance_room_m2.png",
+      "assets/imgs/M2_and_m3_rooms.png",
+      "assets/imgs/M2_room.png",
+      "assets/imgs/Interrogation_room_1.png",
+      "assets/imgs/Interrogation_room.png"
+    ]
+  },
+  {
+    "room_id": 79,
+    "room_name": "M3",
+    "category":"lecture_room",
+    "building": "M3",
+    "floor": "G",
+    "lat": -0.715754610511044,
+    "lon": 37.146763572883,
+    "images": [
+      "assets/imgs/M2_and_m3_rooms.png",
+       "assets/imgs/entrance_room_m2.png"
+    ]
+  },
+  {
+    "room_id": 80,
+    "room_name": "Mechanical Enginering lab/LR 18",
+    "category":"lecture_room",
+    "building": "Mechanical Enginering lab/LR 19",
+    "floor": "G",
+    "lat": -0.715989028187244,
+    "lon": 37.1481808398834,
+    "images": [
+       "assets/imgs/Diploma_class.png",
+      "assets/imgs/Diploma_class_2.png",
+      "assets/imgs/Diploma_class_3.png",
+      "assets/imgs/Diploma_class_4.png"
+    ]
+  },
+  {
+    "room_id": 81,
+    "room_name": "Mechanical Work Shop 2",
+    "category":"lecture_room",
+    "building": "Mechanical Work Shop 2",
+    "floor": "G",
+    "lat": -0.716582219177839,
+    "lon": 37.1493884622318,
+    "images": [
+      "assets/imgs/Mechanical_workshop_1.png",
+      "assets/imgs/Mechanical_workshop_2.png"
+    ]
+     
+  },
+  {
+    "room_id": 82,
+    "room_name": "Medical Physiology laboratory",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 2,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+      "assets/imgs/Science_laboratory_front.png"
+    ]
+  },
+  {
+    "room_id": 83,
+    "room_name": "Medical Skills Lab",
+    "category":"lab",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": "G",
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+        "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 84,
+    "room_name": "Micro Teaching Room",
+    "category":"lecture_room",
+    "building": "Assembly Hall",
+    "floor": 1,
+    "lat": -0.715897766403863,
+    "lon": 37.1470923211146,
+    "images": [
+      "assets/imgs/Assembly_hall.png",
+      "assets/imgs/Assembly_hall_2.png"
+    ]
+  },
+  {
+    "room_id": 85,
+    "room_name": "Microbiology laboratory",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 2,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+      "assets/imgs/Science_laboratory_front.png"
+    ]
+  },
+  {
+    "room_id": 86,
+    "room_name": "Milimani Hall 1",
+    "category":"lecture_room",
+    "building": "Milimani Hall 1",
+    "floor": "G",
+    "lat": -0.716534769966746,
+    "lon": 37.1471006353423,
+    "images": [
+      "assets/imgs/Milimani_hall_1_side_view.png",
+      "assets/imgs/Milimani_hall_2.png",
+      "assets/imgs/Milimani_hall_2_1.png",
+      "assets/imgs/Milimani_hall_2_front.png"
+    ]
+  },
+  {
+    "room_id": 87,
+    "room_name": "Milimani Hall 2",
+    "category":"lecture_room",
+    "building": "Milimani Hall 2",
+    "floor": "G",
+    "lat": -0.716620681953937,
+    "lon": 37.1469051776548,
+    "images": [
+      "assets/imgs/Milimani_hall_1_side_view.png",
+      "assets/imgs/Milimani_hall_2.png",
+      "assets/imgs/Milimani_hall_2_1.png",
+      "assets/imgs/Milimani_hall_2_front.png"
+    ]
+  },
+  {
+    "room_id": 88,
+    "room_name": "MUT TVET INSTITUTE",
+    "category":"office",
+    "building": "MUT TVET INSTITUTE",
+    "floor": "G",
+    "lat": -0.71615022728965,
+    "lon": 37.1481068721662,
+    "images": [
+      "assets/imgs/Diploma_class.png",
+      "assets/imgs/Diploma_class_2.png",
+      "assets/imgs/Diploma_class_3.png",
+      "assets/imgs/Diploma_class_4.png"
+    ]
+  },
+  {
+    "room_id": 89,
+    "room_name": "Network Administrator and Webmaster",
+    "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  },
+  {
+    "room_id": 90,
+    "room_name": "Open ,Distance and e-Learning (ODEL)",
+    "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_offices.png",
+      "assets/imgs/Library_back_left.png",
+      "assets/imgs/Library_front.png",
+      "assets/imgs/Library_back_left.png"
+    ]
+   
+    
+      
+  },
+  {
+    "room_id": 91,
+    "room_name": "Parasitology laboratory",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 2,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+       "assets/imgs/Science_complex_front.png",
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+      "assets/imgs/Science_laboratory_front.png"
+    ]
+  },
+  {
+    "room_id": 92,
+    "room_name": "Payroll Department",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 2,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+       "assets/imgs/Science_complex_front.png",
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+
+    ]
+  },
+  {
+    "room_id": 93,
+    "room_name": "Physics Dark room",
+    "category":"lecture_room",
+    "building": "Science Complex",
+    "floor": 1,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+        "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 94,
+    "room_name": "Physics Dark Room 1",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 2,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 95,
+    "room_name": "Physics laboratory 1",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": "G",
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+      "assets/imgs/Science_laboratory_front.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 96,
+    "room_name": "Plumbing Depertment",
+    "category":"office",
+    "building": "Plumbing Depertment",
+    "floor": "G",
+    "lat": -0.716457052825824,
+    "lon": 37.1500314123941,
+    "images": [
+      "assets/imgs/Plumbing_department.png",
+      "assets/imgs/Plumbing_department_1.png",
+      "assets/imgs/Plumbing_department_2.png",
+      "assets/imgs/Plumbing_department.png"
+
+    ]
+  },
+  {
+    "room_id": 97,
+    "room_name": "PostGraduate Seminar room 5",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 3,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 98,
+    "room_name": "Preparation Room",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 2,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 99,
+    "room_name": "Preparotory Room 1",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": "G",
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+      "assets/imgs/Science_laboratory_front.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 100,
+    "room_name": "Preparotory Room 2",
+    "category":"lab",
+    "building": "Science Laborotaries",
+    "floor": 1,
+    "lat": -0.715491310829465,
+    "lon": 37.1486692501281,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front_2.png",
+      "assets/imgs/Science_laboratory_front.png",
+       "assets/imgs/Science_complex_front.png"
+    ]
+  },
+  {
+    "room_id": 101,
+    "room_name": "Procurement Department",
+    "category":"office",
+    "building": "Assembly Hall",
+    "floor": "G",
+    "lat": -0.715897766403863,
+    "lon": 37.1470923211146,
+    "images": [
+       "assets/imgs/Dining_hall_front.png",
+      "assets/imgs/Assembly_hall.png",
+      "assets/imgs/Assembly_hall_2.png"
+    ]
+  },
+  {
+    "room_id": 102,
+    "room_name": "Recruitment,Training And Development Department",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 2,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 103,
+    "room_name": "Registrar ( Academic, Research and Student Affairs)",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 3,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 104,
+    "room_name": "Registrar ( Finance, Planning and Development)",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 3,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 105,
+    "room_name": "Registrar (Administration and Human Resource)",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 4,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 106,
+    "room_name": "Resturant ",
+    "category":"",
+    "building": " School of Hospitality and Tourism Management",
+    "floor": "G",
+    "lat": -0.716201102072584,
+    "lon": 37.1475795004628,
+    "images": [
+      
+      "assets/imgs/School_of_hospitality_and_tourism_management.png",
+      "assets/imgs/School_of_hospitality_and_tourism_management2.png"
+    ]
+  },
+  {
+    "room_id": 107,
+    "room_name": "SCIT Examination Office",
+    "category":"office",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": "G",
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+       "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 109,
+    "room_name": "scit staffRoom",
+    "category":"office",
+    "building": "school of computing and Information Technology (Twin Lab) ",
+    "floor": 1,
+    "lat": -0.715910872348077,
+    "lon": 37.1492594928733,
+    "images": [
+        "assets/imgs/Twin_lab_front_1.png",
+      "assets/imgs/Twin_lab_left_side_view.png",
+      "assets/imgs/Twin_lab_front_1.png",
+        "assets/imgs/Twin_lab_back.png"
+    ]
+  },
+  {
+    "room_id": 110,
+    "room_name": "Security Department",
+    "category":"office",
+    "building": "Security Department",
+    "floor": "G",
+    "lat": -0.716098486660879,
+    "lon": 37.1474171073471,
+    "images": [
+      "assets/imgs/Security_office.png"
+    ]
+  },
+  {
+    "room_id": 111,
+    "room_name": "Senate Boardroom",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 4,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 112,
+    "room_name": "Server Room 2",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 3,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 113,
+    "room_name": "SHTM Examination Office",
+    "category":"office",
+    "building": " School of Hospitality and Tourism Management",
+    "floor": "G",
+    "lat": -0.716201102072584,
+    "lon": 37.1475795004628,
+    "images": [
+    
+      "assets/imgs/School_of_hospitality_and_tourism_management.png",
+      "assets/imgs/School_of_hospitality_and_tourism_management2.png"
+    ]
+  },
+  {
+    "room_id": 114,
+    "room_name": "SL1",
+    "category":"lecture_room",
+    "building": "SL2",
+    "floor": "G",
+    "lat": -0.716085346673408,
+    "lon": 37.1494624299436,
+    "images": [
+      "assets/imgs/Sl_lab_building.png"
+      
+    ]
+  },
+  {
+    "room_id": 115,
+    "room_name": "SL2",
+    "category":"lecture_room",
+    "building": "SL2",
+    "floor": "G",
+    "lat": -0.716157412153668,
+    "lon": 37.1495932959047,
+    "images": [
+      "assets/imgs/Sl_lab_building.png"
+    ]
+  },
+  {
+    "room_id": 116,
+    "room_name": "SPAHS  Examination Office",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": "G",
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 117,
+    "room_name": "Student Center",
+    "category":"office",
+    "building": "Student Center",
+    "floor": "G",
+    "lat": -0.716279733826011,
+    "lon": 37.1484894699614,
+    "images": [
+      "assets/imgs/Centeral_stores.png"
+    ]
+  },
+  {
+    "room_id": 118,
+    "room_name": "Student Finance",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 2,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 119,
+    "room_name": "Student Registry",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 2,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 120,
+    "room_name": "TB1_F1.1",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 1,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 121,
+    "room_name": "TB1_F1.2",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 1,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 122,
+    "room_name": "TB1_F1.3",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 1,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 123,
+    "room_name": "TB1_F1.4",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 1,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+     
+      "assets/imgs/_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 124,
+    "room_name": "TB1_F2.1",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 2,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 125,
+    "room_name": "TB1_F2.2",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 2,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+  
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 126,
+    "room_name": "TB1_F2.3",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 2,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 127,
+    "room_name": "TB1_F2.4",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 2,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+    
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 128,
+    "room_name": "TB1_F3.1",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 3,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 129,
+    "room_name": "TB1_F3.2",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 3,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 130,
+    "room_name": "TB1_F3.3",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 3,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 132,
+    "room_name": "TB1_F3.4",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 3,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 133,
+    "room_name": "TB1_F4.1",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 4,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 134,
+    "room_name": "TB1_F4.2",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 4,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+    
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 135,
+    "room_name": "TB1_F4.3",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 4,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+    
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 136,
+    "room_name": "TB1_F4.4",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 4,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 137,
+    "room_name": "TB1_GF1",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": "G",
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 138,
+    "room_name": "TB1_GF2",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": "G",
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+     
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 139,
+    "room_name": "TB1_GF3",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": "G",
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 140,
+    "room_name": "TB1_GF4",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": "G",
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 141,
+    "room_name": "Technical Drawing Room",
+    "category":"lecture_room",
+    "building": "Technical Drawing Room",
+    "floor": "G",
+    "lat": -0.716537652370977,
+    "lon": 37.1488488772122,
+    "images": [
+      "assets/imgs/Drawing_room.png",
+      "assets/imgs/Drawing_room_2.png"
+    ]
+  },
+  {
+    "room_id": 142,
+    "room_name": "TV Shed",
+    "category":"",
+    "building": "TV Hall",
+    "floor": "G",
+    "lat": -0.716197237817191,
+    "lon": 37.1483747251644,
+    "images": []
+  },
+  {
+    "room_id": 143,
+    "room_name": "Vice Chancellor",
+    "category":"office",
+    "building": "Science Complex",
+    "floor": 5,
+    "lat": -0.71555365262092,
+    "lon": 37.1484095240825,
+    "images": [
+      "assets/imgs/Science_laboratory_back.png",
+      "assets/imgs/Science_laboratory_front.png",
+      "assets/imgs/Science_laboratory_front_2.png"
+    ]
+  },
+  {
+    "room_id": 144,
+    "room_name": "Wood Work Shop",
+    "category":"lecture_room",
+    "building": "Wood Work Shop",
+    "floor": "G",
+    "lat": -0.716159308616341,
+    "lon": 37.1490698320652,
+    "images": [
+      "assets/imgs/Wood_work_shop.png",
+      "assets/imgs/Wood_work_shop_1.png",
+      "assets/imgs/Wood_workshop.png",
+      "assets/imgs/Wood_workshop_main.png"
+    ]
+  } 
+  ,
+    {
+    "room_id": 145,
+    "room_name": "TB2_GF1",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "G",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 146,
+    "room_name": "TB2_GF2",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "G",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },{
+    "room_id": 147,
+    "room_name": "TB2_GF3",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "G",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 148,
+    "room_name": "TB2_GF4",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "G",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+   {
+    "room_id": 149,
+    "room_name": "TB2_F1.1",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "1",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , 
+  {
+    "room_id": 150,
+    "room_name": "TB2_F1.2",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "1",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , {
+    "room_id": 151,
+    "room_name": "TB2_F1.3",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "1",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , {
+    "room_id": 152,
+    "room_name": "TB2_F1.4",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "1",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , 
+  {
+    "room_id": 153,
+    "room_name": "TB2_F1.5",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "1",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , {
+    "room_id": 153,
+    "room_name": "TB2_F1.6",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "1",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , 
+  {
+    "room_id": 154,
+    "room_name": "TB2_F1.7",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "1",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  
+  ,   {
+    "room_id": 155,
+    "room_name": "TB2_F2.1",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "2",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 156,
+    "room_name": "TB2_F2.2",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "2",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , {
+    "room_id": 157,
+    "room_name": "TB2_F2.3",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "2",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , {
+    "room_id": 158,
+    "room_name": "TB2_F2.4",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "2",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , 
+  {
+    "room_id": 159,
+    "room_name": "TB2_F2.5",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "2",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , {
+    "room_id": 160,
+    "room_name": "TB2_F2.6",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "2",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , 
+  {
+    "room_id": 161,
+    "room_name": "TB2_F2.7",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "2",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , 
+   {
+    "room_id": 162,
+    "room_name": "TB2_F3.1",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "3",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  ,   {
+    "room_id": 163,
+    "room_name": "TB2_F2.3",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "3",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 164,
+    "room_name": "TB2_F3.2",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "3",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , {
+    "room_id": 165,
+    "room_name": "TB2_F3.3",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "3",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , {
+    "room_id": 166,
+    "room_name": "TB2_F3.4",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "3",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , 
+  {
+    "room_id": 167,
+    "room_name": "TB2_F3.5",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "3",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , {
+    "room_id": 168,
+    "room_name": "TB2_F3.6",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "3",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , 
+  {
+    "room_id": 169,
+    "room_name": "TB2_F3.7",
+    "category":"lecture_room",
+    "building": "Tution Block 2",
+    "floor": "3",
+    "lat":-0.7147857932036678,
+    "lon":37.15083978002576,
+    "images": [
+     
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  }
+  , 
+   {
+    "room_id": 170,
+    "room_name": "Ecop Hall/TB1_F4.4",
+    "category":"lecture_room",
+    "building": "Tution Block 1",
+    "floor": 4,
+    "lat": -0.714905293819692,
+    "lon": 37.1481998635532,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+    ]
+  },
+  {
+    "room_id": 171,
+    "room_name": "Main Gate",
+    "category":"entrance",
+    "building": "Gate",
+    "floor":"G",
+    "lat": -0.7150753556651687, 
+    "lon":37.14705373173595,
+    "images": [
+      
+      "assets/imgs/Main_Gate1.png",
+      "assets/imgs/Main_Gate2.png",
+      "assets/imgs/Main_Gate3.png",
+       "assets/imgs/Main_Gate2.png"
+    ]
+  },
+  {
+    "room_id": 173,
+    "room_name": "Manyotta Gate",
+     "category":"entrance",
+    "building": "Gate",
+    "floor":"G",
+    "lat": -0.7168609032611126, 
+    "lon":37.15130625319038,
+    "images": [
+      
+      "assets/imgs/ManyottaGate1.png",
+      "assets/imgs/ManyottaGate1.png",
+      "assets/imgs/ManyottaGate1.png",
+       "assets/imgs/ManyottaGate1.png"
+    
+    ]
+  },
+   {
+    "room_id": 174,
+    "room_name": "Small Gate",
+     "category":"entrance",
+    "building": "Gate",
+    "floor":"G",
+    "lat": -0.7167318281058765, 
+    "lon":37.14738597357618,
+    "images": [
+      
+      "assets/imgs/SmallGate1.png",
+      "assets/imgs/SmallGate1.png",
+      "assets/imgs/SmallGate1.png", 
+        "assets/imgs/SmallGate1.png"
+    ]
+  },
+     {
+    "room_id": 175,
+    "room_name": "Shades (Study Shades)",
+      "category":"",
+    "building": "Tution Block 1 Shades",
+    "floor":"G",
+    "lat": -0.714613871706965,
+    "lon":37.148750932250216,
+    "images": [
+      
+      "assets/imgs/Shades_1.png",
+      "assets/imgs/Shades_2.png",
+      "assets/imgs/Shades_3.png",
+      "assets/imgs/Shades_4.png"
+     
+    ]
+  }
+  ,
+  {
+    "room_id": 176,
+    "room_name": "Shades (Study test)",
+     "category":"",
+    "building": "Tution Block 1 Shades",
+    "floor":"G",
+    "lat": -0.714613871706965,
+    "lon":37.148750932250216,
+    "images": [
+      
+      "assets/imgs/Shades_1.png",
+      "assets/imgs/Shades_2.png",
+      "assets/imgs/Shades_3.png",
+      "assets/imgs/Shades_4.png"
+     
+    ]
+  }
+  ,
+  {
+    "room_id": 177,
+    "room_name": "Basketball Court",
+     "category":"",
+    "building": "Basketball Court",
+    "floor":"None",
+    "lat": -0.7164737858586426,
+    "lon":37.14782803396136,
+    "images": [
+      
+      "assets/imgs/Shades_1.png",
+      "assets/imgs/Shades_2.png",
+      "assets/imgs/Shades_3.png",
+      "assets/imgs/Shades_4.png"
+     
+    ]
+  },
+  {
+    "room_id": 178,
+    "room_name": "Director,Undergraduate Studies and Industrial attachments",
+     "category":"office",
+    "building": "Tution Block 1 ",
+    "floor":"Basement",
+    "lat":-0.7148109625042852, 
+    "lon":37.14838052208013 ,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+
+     
+    ]
+  },
+  {
+    "room_id": 179,
+    "room_name": "MUT saccos office",
+      "category":"office",
+    "building": "Tution Block 1 ",
+    "floor":"Basement",
+    "lat":-0.7148109625042852, 
+    "lon":37.14838052208013 ,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+
+     
+    ]
+  },
+  {
+    "room_id": 180,
+    "room_name": "SHSS Common Room",
+      "category":"office",
+    "building": "Tution Block 1 ",
+    "floor":"Basement",
+    "lat":-0.7148109625042852, 
+    "lon":37.14838052208013 ,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+
+     
+    ]
+  }
+  ,
+  {
+    "room_id": 181,
+    "room_name": "Coordinator Carrier Services",
+      "category":"office",
+    "building": "Tution Block 1 ",
+    "floor":"Basement",
+    "lat":-0.7148109625042852, 
+    "lon":37.14838052208013 ,
+    "images": [
+      
+      "assets/imgs/Tuition_block_back.png",
+      "assets/imgs/Tuition_block_back_1.png",
+      "assets/imgs/Tuition_block_back_2.png"
+
+     
+    ]
+  }
+  ,
+  {
+    "room_id": 182,
+    "room_name": "Dean, School of Agricultural and environmental Sciences",
+      "category":"office",
+    "building": "School of bussiness and economics ",
+    "floor":"G",
+    "lat":-0.7150783641240438, 
+    "lon":37.14760275147458,
+    "images": [
+      
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics.png",
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics_side3.png"
+
+     
+    ]
+  }
+  ,
+  {
+    "room_id": 183,
+    "room_name": "SBE Examination Office and SBE TVET Coordinator",
+      "category":"office",
+    "building": "School of bussiness and economics ",
+    "floor":"G",
+    "lat":-0.7150783641240438, 
+    "lon":37.14760275147458,
+    "images": [
+      
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics.png",
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics_side3.png"
+
+     
+    ]
+  }
+  ,
+  {
+    "room_id": 182,
+    "room_name": "Dean, School of Agricultural and environmental Sciences",
+      "category":"office",
+    "building": "School of bussiness and economics ",
+    "floor":"G",
+    "lat":-0.7150783641240438, 
+    "lon":37.14760275147458,
+    "images": [
+      
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics.png",
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics_side3.png"
+
+     
+    ]
+  },
+  {
+    "room_id": 183,
+    "room_name": "COD,Department of Commerce",
+      "category":"office",
+    "building": "School of bussiness and economics ",
+    "floor":"G",
+    "lat":-0.7150783641240438, 
+    "lon":37.14760275147458,
+    "images": [
+      
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics.png",
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics_side3.png"
+
+     
+    ]
+  },
+  {
+    "room_id": 184,
+    "room_name": "Dean, School of Business and Economics",
+      "category":"office",
+    "building": "School of bussiness and economics ",
+    "floor":"1",
+    "lat":-0.7150783641240438, 
+    "lon":37.14760275147458,
+    "images": [
+      
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics.png",
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics_side3.png"
+
+     
+    ]
+  },
+  {
+    "room_id": 185,
+    "room_name": " SBE AND SEHSS BOARD ROOM",
+      "category":"office",
+    "building": "School of bussiness and economics ",
+    "floor":"1",
+    "lat":-0.7150783641240438, 
+    "lon":37.14760275147458,
+    "images": [
+      
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics.png",
+      "assets/imgs/School_of_business_and_economics_side.png",
+      "assets/imgs/School_of_business_and_economics_side3.png"
+
+     
+    ]
+  },
+  {
+    "room_id": 186,
+    "room_name": "COD, Mechanical Engineering",
+       "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  }
+  ,
+  {
+    "room_id": 187,
+    "room_name": "Dean, Schoolof Engineering and Technology",
+        "category":"office",
+    "building": "Library Basement",
+    "floor": "G",
+    "lat": -0.715739395811025,
+    "lon": 37.147603742602,
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  }
+  ,
+  {
+    "room_id": 188,
+    "room_name": "Manyotta Girls Hostel",
+     "category":"",
+    "building": "Manyotta Girls Hostel",
+    "floor": "all",
+    "lat": -0.7166562374999081, 
+    "lon": 37.151278278985714,
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  }
+   ,
+  {
+    "room_id": 189,
+    "room_name": "Manyotta Boys Hostel",
+     "category":"",
+    "building": "Manyotta Boys Hostel",
+    "floor": "all",
+    "lat": -0.7157540124304963, 
+    "lon": 37.15048417722939,
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  },
+   {
+    "room_id": 190,
+    "room_name": "Indoor arena ",
+      "category":"",
+    "building": "Indoor arena",
+    "floor": "all",
+    "lat": -0.7165269953758691, 
+    "lon": 37.147615322175945,
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  },
+   {
+    "room_id": 191,
+    "room_name": "SDA Office",
+      "category":"office",
+    "building": "SDA Office",
+    "floor": "all",
+    "lat": -0.7164310574198546, 
+    "lon": 37.14840738252271, 
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  }
+  
+  ,
+   {
+    "room_id": 192,
+    "room_name": "Room 23",
+     "category":"lecture_room",
+    "building": "Room 23",
+    "floor": "1",
+    "lat": -0.7166443662708764,
+    "lon":  37.14907083514452, 
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  }
+   ,
+   {
+    "room_id": 192,
+    "room_name": "Room 22",
+      "category":"lecture_room",
+    "building": "Room 22",
+    "floor": "G",
+    "lat": -0.7166443662708764, 
+    "lon": 37.14907083514452,
+    "images": [
+      "assets/imgs/Library_offices.png"
+    ]
+  }
+  
+  
+
+
+
+]
