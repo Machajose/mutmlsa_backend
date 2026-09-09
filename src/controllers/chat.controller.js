@@ -136,6 +136,7 @@ export async function chatWithAssistant(req, res) {
   // Only pulls in campus location data when the message actually looks
   // like a location question — keeps normal FAQ messages cheap and fast.
   const matchedRooms = findMatchingRooms(message);
+  console.log(`Query: "${message}" → matched ${matchedRooms.length} rooms:`, matchedRooms.map(r => r.room_name));
   const roomContext = formatRoomsForPrompt(matchedRooms);
   const fullSystemPrompt = SITE_CONTEXT + roomContext;
 
@@ -172,8 +173,8 @@ export async function chatWithAssistant(req, res) {
   } catch (err) {
     console.error("Chat error:", err);
     res.status(500).json({ error: "Something went wrong. Please try again." });
-    const matchedRooms = findMatchingRooms(message);
-console.log(`Query: "${message}" → matched ${matchedRooms.length} rooms:`, matchedRooms.map(r => r.room_name));
+  
+
   }
 }
 
