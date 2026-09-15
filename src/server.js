@@ -3,6 +3,7 @@ import app from "./app.js";
 import { initMembershipTable } from "./models/MembershipApplication.js";
 import { initContactTable } from "./models/ContactMessage.js";
 import { initMembersTable } from "./models/Member.js";
+import { initSubscribersTable } from "./models/Subscriber.js";
 
 const PORT = process.env.PORT || 4000;
 
@@ -11,6 +12,7 @@ async function start() {
     await initMembershipTable();
     await initContactTable();
     await initMembersTable();
+    await initSubscribersTable();
     console.log("Database tables ready.");
 
     app.listen(PORT, () => {

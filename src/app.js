@@ -4,8 +4,11 @@ import membershipRoutes from "./routes/membership.routes.js";
 import contactRoutes from "./routes/contact.routes.js";
 import chatRoutes from "./routes/chat.routes.js";
 import membersRoutes from "./routes/members.routes.js";
+import newsletterRoutes from "./routes/newsletter.routes.js";
 
 const app = express();
+
+
 
 const allowedOrigins = (process.env.FRONTEND_URL || "")
   .split(",")
@@ -38,6 +41,7 @@ app.use("/api/membership", membershipRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/admin/members", membersRoutes);
+app.use("/api/newsletter", newsletterRoutes);
 
 // Catch-all 404
 app.use((req, res) => {
