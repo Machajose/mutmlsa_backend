@@ -10,4 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping backend health endpoint
-        run: curl -s -o /dev/null -w "Status: %{http_code}\n" https://mutmlsa-backend.onrender.com/health
+        run: >
+          curl -s -o /dev/null -w "Status: %{http_code}\n" https://mutmlsa-backend.onrender.com/health
