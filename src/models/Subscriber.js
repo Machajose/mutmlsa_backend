@@ -30,3 +30,18 @@ export async function getAllSubscribers() {
   );
   return result.rows;
 }
+export async function bulkAddFromMembers(members) {
+  let added = 0;
+  for (const m of members) {
+    if (!m.email) continue;
+    const result = await pool.query(
+      `INSERT INTO newsletter_subscribers (full_name, email)
+       VALUES ($1, $2)
+       ON CONFLICT (email) DO NOTHING
+       RETURNING id`,
+      [m.full_name, m.email]
+    );
+    if (result.rows.length > 0) added++;
+  }
+  return added;
+}

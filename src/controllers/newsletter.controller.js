@@ -1,4 +1,18 @@
 import { createSubscriber, getAllSubscribers } from "../models/Subscriber.js";
+import { getAllMembers } from "../models/Member.js";
+import { bulkAddFromMembers } from "../models/Subscriber.js";
+
+
+export async function backfillFromMembers(req, res) {
+  try {
+    const members = await getAllMembers();
+    const added = await bulkAddFromMembers(members);
+    res.json({ success: true, added });
+  } catch (err) {
+    console.error("Error backfilling subscribers:", err);
+    res.status(500).json({ error: "Could not backfill subscribers." });
+  }
+}
 
 export async function subscribe(req, res) {
   const { fullName, email } = req.body;
