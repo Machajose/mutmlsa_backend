@@ -5,6 +5,7 @@ import contactRoutes from "./routes/contact.routes.js";
 import chatRoutes from "./routes/chat.routes.js";
 import membersRoutes from "./routes/members.routes.js";
 import newsletterRoutes from "./routes/newsletter.routes.js";
+import pool from "./config/db.js";
 
 const app = express();
 
@@ -33,8 +34,13 @@ app.get("/", (req, res) => {
   res.json({ status: "MUTMLSA backend is running." });
 });
 
-app.get("/health", (req, res) => {
-  res.json({ ok: true });
+app.get("/health", async (req, res) => {
+  try {
+    await pool.query("SELECT 1");
+    res.json({ ok: true, db: "connected" });
+  } catch (err) {
+    res.status(500).json({ ok: false, error: err.message });
+  }
 });
 
 app.use("/api/membership", membershipRoutes);

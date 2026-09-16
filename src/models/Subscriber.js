@@ -45,3 +45,18 @@ export async function bulkAddFromMembers(members) {
   }
   return added;
 }
+export async function bulkAddFromApplications(applications) {
+  let added = 0;
+  for (const a of applications) {
+    if (!a.email) continue;
+    const result = await pool.query(
+      `INSERT INTO newsletter_subscribers (full_name, email)
+       VALUES ($1, $2)
+       ON CONFLICT (email) DO NOTHING
+       RETURNING id`,
+      [a.full_name, a.email]
+    );
+    if (result.rows.length > 0) added++;
+  }
+  return added;
+}
