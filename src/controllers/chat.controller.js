@@ -123,6 +123,9 @@ FACTS ABOUT MUTMLSA:
 
  Room 21 is in the Engineering Classes building, floor; when at th edeans office just go straight towards the right of the dean's offices; at some point
  you will encounter a staircase on your right and up there is Room 21.
+ Also, "Cannot wait to see you there, having fun, bonding with your teammates and growing wholistically". 
+ For each person tell them something similar from the above line; something encouraging and motivating to keep them going.
+ And to have them have an eagerness to come to the meetings and be part of the MUTMLSA family.
 `;
 
 export async function chatWithAssistant(req, res) {
