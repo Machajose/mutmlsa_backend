@@ -1,5 +1,8 @@
 import { Router } from "express";
 import { adminAuth } from "../middleware/adminAuth.js";
+
+import { adminLoginLimiter } from "../middleware/rateLimiter.js";
+
 import {
   listMembers,
   listPendingApplications,
@@ -10,10 +13,10 @@ import {
 
 const router = Router();
 
-router.get("/", adminAuth, listMembers);
-router.get("/pending-applications", adminAuth, listPendingApplications);
-router.post("/", adminAuth, addMember);
-router.patch("/:id/payment", adminAuth, updatePayment);
-router.patch("/:id/registration", adminAuth, updateRegistration);
+router.get("/", adminLoginLimiter, adminAuth, listMembers);
+router.get("/pending-applications", adminLoginLimiter, adminAuth, listPendingApplications);
+router.post("/", adminLoginLimiter, adminAuth, addMember);
+router.patch("/:id/payment", adminLoginLimiter, adminAuth, updatePayment);
+router.patch("/:id/registration", adminLoginLimiter, adminAuth, updateRegistration);
 
 export default router;

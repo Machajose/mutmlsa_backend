@@ -16,6 +16,14 @@ export async function initMembershipTable() {
 }
 
 export async function createApplication({ fullName, yearOfStudy, phone, email, message }) {
+  const existing = await pool.query(
+    `SELECT * FROM membership_applications WHERE email = $1 AND status = 'pending' LIMIT 1`,
+    [email]
+  );
+  if (existing.rows.length > 0) {
+    return { ...existing.rows[0], alreadySubmitted: true };
+  }
+
   const result = await pool.query(
     `INSERT INTO membership_applications (full_name, year_of_study, phone, email, message)
      VALUES ($1, $2, $3, $4, $5)

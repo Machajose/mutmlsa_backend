@@ -11,6 +11,14 @@ export async function applyForMembership(req, res) {
   try {
     const application = await createApplication({ fullName, yearOfStudy, phone, email, message });
 
+    if (application.alreadySubmitted) {
+      return res.status(200).json({
+        success: true,
+        alreadySubmitted: true,
+        application,
+      });
+    }
+
     await notifyCommittee(
       "New MUTMLSA membership application",
       `<h2>New membership application</h2>
@@ -27,7 +35,6 @@ export async function applyForMembership(req, res) {
     res.status(500).json({ error: "Something went wrong. Please try again later." });
   }
 }
-
 export async function listApplications(req, res) {
   try {
     const applications = await getAllApplications();
