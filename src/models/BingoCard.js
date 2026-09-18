@@ -5,7 +5,7 @@ export async function initBingoTable() {
     CREATE TABLE IF NOT EXISTS bingo_cards (
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
-      marked_squares INTEGER[] NOT NULL DEFAULT '{12}',
+      filled_squares JSONB NOT NULL DEFAULT '{}',
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     );
   `);
@@ -13,7 +13,7 @@ export async function initBingoTable() {
 
 export async function createCard(name) {
   const result = await pool.query(
-    `INSERT INTO bingo_cards (name, marked_squares) VALUES ($1, '{12}') RETURNING *`,
+    `INSERT INTO bingo_cards (name, filled_squares) VALUES ($1, '{"12": "FREE"}') RETURNING *`,
     [name]
   );
   return result.rows[0];
@@ -32,10 +32,26 @@ export async function findCardsByName(name) {
   return result.rows;
 }
 
-export async function updateMarkedSquares(id, markedSquares) {
+export async function fillSquare(id, squareIndex, personName) {
+  const card = await getCardById(id);
+  if (!card) return null;
+
+  const updated = { ...card.filled_squares, [squareIndex]: personName };
   const result = await pool.query(
-    `UPDATE bingo_cards SET marked_squares = $2 WHERE id = $1 RETURNING *`,
-    [id, markedSquares]
+    `UPDATE bingo_cards SET filled_squares = $2 WHERE id = $1 RETURNING *`,
+    [id, updated]
   );
   return result.rows[0];
+}
+
+export async function getLeaderboard(limit = 10) {
+  const result = await pool.query(`SELECT id, name, filled_squares FROM bingo_cards`);
+  return result.rows
+    .map((c) => ({
+      id: c.id,
+      name: c.name,
+      score: Object.keys(c.filled_squares || {}).length,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
 }
