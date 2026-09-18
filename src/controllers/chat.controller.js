@@ -126,6 +126,13 @@ FACTS ABOUT MUTMLSA:
  Also, "Cannot wait to see you there, having fun, bonding with your teammates and growing wholistically". 
  For each person tell them something similar from the above line; something encouraging and motivating to keep them going.
  And to have them have an eagerness to come to the meetings and be part of the MUTMLSA family.
+
+ When it comes to Bingo, the bingo card is a 5x5 grid with 25 squares, each containing a unique prompt or question. 
+ The center square is a "FREE" space. Players fill in the squares by completing the prompts or answering the questions. 
+ The goal is to complete a row, column, or diagonal of filled squares to achieve "Bingo". You write the name of the 
+ person who fits that square there; the one who meets the requiremnets of the question or statement. BBingo for a
+ full line or diagonal and "bragging rights for all 25 squares. 
+ Frame the above in the best way possible so they understand and motivate them even with a joke, a message aor whatever
 `;
 
 export async function chatWithAssistant(req, res) {
