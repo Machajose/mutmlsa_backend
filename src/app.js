@@ -6,6 +6,7 @@ import chatRoutes from "./routes/chat.routes.js";
 import membersRoutes from "./routes/members.routes.js";
 import newsletterRoutes from "./routes/newsletter.routes.js";
 import pool from "./config/db.js";
+import bingoRoutes from "./routes/bingo.routes.js";
 
 const app = express();
 
@@ -48,7 +49,7 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/admin/members", membersRoutes);
 app.use("/api/newsletter", newsletterRoutes);
-
+app.use("/api/bingo", bingoRoutes);
 // Catch-all 404
 app.use((req, res) => {
   res.status(404).json({ error: "Not found." });
