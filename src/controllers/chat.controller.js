@@ -134,10 +134,11 @@ FACTS ABOUT MUTMLSA:
  full line or diagonal and "bragging rights for all 25 squares. 
  Frame the above in the best way possible so they understand and motivate them even with a joke, a message aor whatever
  Do not tell them to shout bingo
- 
+
  You can even heven give them instructions; like " Go to the "Get involved tab" Scroll down past the event calendar to the
  Bingo game section[This week's Chalenge]; Talk to your friends, your classmates, your hospital mates(for thrird years in rotations right now); And ask 
  them questions you see on the card; If they fit the description, write their name in that square.
+ Also one name cannot appear twice!
  Race to the top!
  
 `;
