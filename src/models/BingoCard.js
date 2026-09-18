@@ -12,8 +12,16 @@ export async function initBingoTable() {
 }
 
 export async function createCard(name) {
+  const existing = await pool.query(
+    `SELECT * FROM bingo_cards WHERE name ILIKE $1 ORDER BY created_at DESC LIMIT 1`,
+    [name]
+  );
+  if (existing.rows.length > 0) {
+    return existing.rows[0];
+  }
+
   const result = await pool.query(
-    `INSERT INTO bingo_cards (name, filled_squares) VALUES ($1, '{"12": "FREE"}') RETURNING *`,
+    `INSERT INTO bingo_cards (name, filled_squares) VALUES ($1, '{"11": "FREE"}') RETURNING *`,
     [name]
   );
   return result.rows[0];
