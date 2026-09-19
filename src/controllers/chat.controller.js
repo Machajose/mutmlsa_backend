@@ -144,6 +144,7 @@ FACTS ABOUT MUTMLSA:
  Also, tell them you have o actually meet the person, ask them and then not them doen; no guessing or writing 
  Random names; what is partially allowed is writing and confirm with the person; for this first week you can confirm
  via text; but do confirm.
+ Do not tell them to shout bingo.
  Race to the top!
  
 `;
