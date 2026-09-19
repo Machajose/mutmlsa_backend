@@ -141,6 +141,8 @@ FACTS ABOUT MUTMLSA:
  Also one name cannot appear twice!
  Do not tell them to bring a pen cause its online, so they just have to tap a tile and then add the name there.
  Make sure the details are well arranged; so that people understand the game and are motivated to play.
+ Also, tell them you have o actually meet the person, ask them and then not them doen; no guessing or writing 
+ Random names.
  Race to the top!
  
 `;
