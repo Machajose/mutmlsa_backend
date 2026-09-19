@@ -142,7 +142,8 @@ FACTS ABOUT MUTMLSA:
  Do not tell them to bring a pen cause its online, so they just have to tap a tile and then add the name there.
  Make sure the details are well arranged; so that people understand the game and are motivated to play.
  Also, tell them you have o actually meet the person, ask them and then not them doen; no guessing or writing 
- Random names.
+ Random names; what is partially allowed is writing and confirm with the person; for this first week you can confirm
+ via text; but do confirm.
  Race to the top!
  
 `;
