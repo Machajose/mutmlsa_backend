@@ -106,3 +106,10 @@ export async function getLeaderboard(limit = 10) {
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 }
+export async function renameCard(id, newName) {
+  const result = await pool.query(
+    `UPDATE bingo_cards SET name = $2 WHERE id = $1 RETURNING *`,
+    [id, newName]
+  );
+  return result.rows[0];
+}

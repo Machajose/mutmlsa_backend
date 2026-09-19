@@ -1,4 +1,23 @@
-import { createCard, getCardById, findCardsByName, fillSquare, getLeaderboard } from "../models/BingoCard.js";
+
+import { createCard, getCardById, findCardsByName, fillSquare, getLeaderboard, renameCard } from "../models/BingoCard.js";
+
+export async function renameCardHandler(req, res) {
+  const { id } = req.params;
+  const { name } = req.body;
+
+  if (!name || !name.trim()) {
+    return res.status(400).json({ error: "Name is required." });
+  }
+
+  try {
+    const card = await renameCard(id, name.trim());
+    if (!card) return res.status(404).json({ error: "Card not found." });
+    res.json({ card });
+  } catch (err) {
+    console.error("Error renaming card:", err);
+    res.status(500).json({ error: "Could not rename card." });
+  }
+}
 
 export async function newCard(req, res) {
   const { name } = req.body;
