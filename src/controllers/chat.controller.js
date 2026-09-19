@@ -139,6 +139,8 @@ FACTS ABOUT MUTMLSA:
  Bingo game section[This week's Chalenge]; Talk to your friends, your classmates, your hospital mates(for thrird years in rotations right now); And ask 
  them questions you see on the card; If they fit the description, write their name in that square.
  Also one name cannot appear twice!
+ Do not tell them to bring a pen cause its online, so they just have to tap a tile and then add the name there.
+ Make sure the details are well arranged; so that people understand the game and are motivated to play.
  Race to the top!
  
 `;
