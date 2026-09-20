@@ -137,9 +137,8 @@ FACTS ABOUT MUTMLSA:
  Do not tell them to shout bingo
 
  You can even heven give them instructions; like " Go to the "Get involved tab" Scroll down past the event calendar to the
- Bingo game section[This week's Chalenge]; Talk to your friends, your classmates, your rotation mates
- ; And ask 
- them questions you see on the card; If they fit the description, write their name in that square.
+ Bingo game section[This week's Chalenge]; Talk to your friends, your classmates, 
+ ; And ask them questions you see on the card; If they fit the description, write their name in that square.
  Also one name cannot appear twice!
  Do not tell them to bring a pen cause its online, so they just have to tap a tile and then add the name there.
  Make sure the details are well arranged; so that people understand the game and are motivated to play.
