@@ -59,6 +59,7 @@ export function isAuditQuestion(message) {
   return AUDIT_TRIGGER_WORDS.some((w) => lower.includes(w));
 }
 
-export function getAuditContext() {
-  return `\n\n${AUDIT_SUMMARY}\n\nThe full audit PDF is available for download on the site at ${AUDIT_PDF_URL} — mention this if the person wants the complete document.`;
+export function getAuditContext(siteUrl) {
+  const fullPdfUrl = `${siteUrl}${AUDIT_PDF_URL}`;
+  return `\n\n${AUDIT_SUMMARY}\n\nThe full audit PDF is available for download. When mentioning it, always format it as a markdown link like this: [Download the full audit PDF](${fullPdfUrl})`;
 }

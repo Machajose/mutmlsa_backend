@@ -166,10 +166,8 @@ export async function chatWithAssistant(req, res) {
   const matchedRooms = findMatchingRooms(message);
   console.log(`Query: "${message}" → matched ${matchedRooms.length} rooms:`, matchedRooms.map(r => r.room_name));
   const roomContext = formatRoomsForPrompt(matchedRooms);
-  const auditContext = isAuditQuestion(message) ? getAuditContext() : "";
+  const auditContext = isAuditQuestion(message) ? getAuditContext("https://your-actual-live-domain.vercel.app") : "";
   const fullSystemPrompt = SITE_CONTEXT + roomContext + auditContext;
-
-  
 
   try {
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
