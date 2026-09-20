@@ -13,6 +13,7 @@
     "express": "^4.19.2",
     "express-rate-limit": "^8.7.0",
     "pg": "^8.13.0",
-    "resend": "^4.0.1"
+    "resend": "^4.0.1",
+    "web-push": "^3.6.7"
   }
 }

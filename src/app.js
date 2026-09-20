@@ -9,6 +9,8 @@ import pool from "./config/db.js";
 import bingoRoutes from "./routes/bingo.routes.js";
 import quizRoutes from "./routes/Quiz.routes.js";
 import sprintRoutes from "./routes/Sprint.routes.js";
+import pushRoutes from "./routes/push.routes.js"
+import notifyRoutes from "./routes/notify.routes.js";
 
 const app = express();
 
@@ -52,6 +54,8 @@ app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/bingo", bingoRoutes);
 app.use("/api/quiz", quizRoutes);
 app.use("/api/sprint", sprintRoutes);
+app.use("/api/push", pushRoutes);
+app.use("/api/notify", notifyRoutes);
 
 // Catch-all 404
 app.use((req, res) => {
