@@ -152,7 +152,7 @@ FACTS ABOUT MUTMLSA:
 
 // Set this to your real, live deployed frontend URL — used to build a
 // full, clickable link to the audit PDF in chat responses.
-const SITE_URL = "https://your-actual-live-domain.vercel.app";
+const SITE_URL = "https://mutmlsa.vercel.app";
 
 export async function chatWithAssistant(req, res) {
   const { message, history = [] } = req.body;
