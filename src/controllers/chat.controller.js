@@ -150,6 +150,10 @@ FACTS ABOUT MUTMLSA:
  
 `;
 
+// Set this to your real, live deployed frontend URL — used to build a
+// full, clickable link to the audit PDF in chat responses.
+const SITE_URL = "https://your-actual-live-domain.vercel.app";
+
 export async function chatWithAssistant(req, res) {
   const { message, history = [] } = req.body;
 
@@ -166,8 +170,16 @@ export async function chatWithAssistant(req, res) {
   const matchedRooms = findMatchingRooms(message);
   console.log(`Query: "${message}" → matched ${matchedRooms.length} rooms:`, matchedRooms.map(r => r.room_name));
   const roomContext = formatRoomsForPrompt(matchedRooms);
-  const auditContext = isAuditQuestion(message) ? getAuditContext("https://your-actual-live-domain.vercel.app") : "";
+
+  // Same pattern for the audit summary — only appended when the question
+  // looks finance/audit-related, and only while it's still meant to be public.
+  const auditContext = isAuditQuestion(message) ? getAuditContext(SITE_URL) : "";
+
   const fullSystemPrompt = SITE_CONTEXT + roomContext + auditContext;
+
+  // Audit answers tend to need more room to walk through two semesters'
+  // worth of figures without getting cut off mid-sentence.
+  const maxTokens = isAuditQuestion(message) ? 700 : 400;
 
   try {
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -178,7 +190,7 @@ export async function chatWithAssistant(req, res) {
       },
       body: JSON.stringify({
         model: "openai/gpt-oss-120b",
-        max_tokens: 400,
+        max_tokens: maxTokens,
         messages: [
           { role: "system", content: fullSystemPrompt },
           ...history.slice(-6).map((m) => ({ role: m.role, content: m.content })),
@@ -200,8 +212,5 @@ export async function chatWithAssistant(req, res) {
   } catch (err) {
     console.error("Chat error:", err);
     res.status(500).json({ error: "Something went wrong. Please try again." });
-  
-
   }
 }
-
