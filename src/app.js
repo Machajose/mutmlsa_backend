@@ -7,10 +7,10 @@ import membersRoutes from "./routes/members.routes.js";
 import newsletterRoutes from "./routes/newsletter.routes.js";
 import pool from "./config/db.js";
 import bingoRoutes from "./routes/bingo.routes.js";
+import quizRoutes from "./routes/Quiz.routes.js";
+import sprintRoutes from "./routes/Sprint.routes.js";
 
 const app = express();
-
-
 
 const allowedOrigins = (process.env.FRONTEND_URL || "")
   .split(",")
@@ -50,6 +50,9 @@ app.use("/api/chat", chatRoutes);
 app.use("/api/admin/members", membersRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/bingo", bingoRoutes);
+app.use("/api/quiz", quizRoutes);
+app.use("/api/sprint", sprintRoutes);
+
 // Catch-all 404
 app.use((req, res) => {
   res.status(404).json({ error: "Not found." });

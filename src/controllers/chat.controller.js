@@ -1,4 +1,5 @@
 import { findMatchingRooms, formatRoomsForPrompt } from "../utils/campusLookup.js";
+import { isAuditQuestion, getAuditContext } from "../utils/auditContext.js";
 
 // Uses the Groq API (OpenAI-compatible chat completions format).
 // Requires GROQ_API_KEY in your .env.
@@ -165,9 +166,10 @@ export async function chatWithAssistant(req, res) {
   const matchedRooms = findMatchingRooms(message);
   console.log(`Query: "${message}" → matched ${matchedRooms.length} rooms:`, matchedRooms.map(r => r.room_name));
   const roomContext = formatRoomsForPrompt(matchedRooms);
-  const fullSystemPrompt = SITE_CONTEXT + roomContext;
+  const auditContext = isAuditQuestion(message) ? getAuditContext() : "";
+  const fullSystemPrompt = SITE_CONTEXT + roomContext + auditContext;
 
-
+  
 
   try {
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {

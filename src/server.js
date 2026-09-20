@@ -5,6 +5,8 @@ import { initContactTable } from "./models/ContactMessage.js";
 import { initMembersTable } from "./models/Member.js";
 import { initSubscribersTable } from "./models/Subscriber.js";
 import { initBingoTable } from "./models/BingoCard.js";
+import { initQuizTable } from "./models/QuizAttempt.js";
+import { initSprintTable } from "./models/Sprintattempt.js";
 
 const PORT = process.env.PORT || 4000;
 
@@ -15,6 +17,8 @@ async function start() {
     await initMembersTable();
     await initSubscribersTable();
     await initBingoTable();
+    await initQuizTable();
+    await initSprintTable();
     console.log("Database tables ready.");
 
     app.listen(PORT, () => {
