@@ -77,9 +77,9 @@ export async function fillSquare(id, squareIndex, personName) {
   }
 
   const result = await pool.query(
-    `UPDATE bingo_cards SET filled_squares = $2 WHERE id = $1 RETURNING *`,
-    [id, updated]
-  );
+  `UPDATE bingo_cards SET filled_squares = $2, updated_at = now() WHERE id = $1 RETURNING *`,
+  [id, updated]
+);
 
   const wasBingoBefore = hasBingo(card.filled_squares);
   const isBingoNow = hasBingo(updated);

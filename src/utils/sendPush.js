@@ -9,15 +9,14 @@ webpush.setVapidDetails(
 
 // Sends a notification to every stored subscriber — used by the manual
 // admin "send to all" form.
-export async function broadcastNotification({ title, body, url = "/" }) {
+export async function broadcastNotification({ title, body, url = "/", image }) {
   const subs = await getAllSubscriptions();
-  await Promise.all(subs.map((row) => broadcastToOne(row, { title, body, url })));
+  await Promise.all(subs.map((row) => broadcastToOne(row, { title, body, url, image })));
 }
 
-// Sends to a single subscriber row — used by the auto-check job, which
-// targets specific people rather than everyone at once.
-export async function broadcastToOne(row, { title, body, url = "/" }) {
-  const payload = JSON.stringify({ title, body, url });
+export async function broadcastToOne(row, { title, body, url = "/", image }) {
+  const payload = JSON.stringify({ title, body, url, image });
+
   try {
     await webpush.sendNotification(row.subscription, payload);
   } catch (err) {
