@@ -7,22 +7,24 @@ webpush.setVapidDetails(
   process.env.VAPID_PRIVATE_KEY
 );
 
-// Sends a notification to every stored subscriber.
+// Sends a notification to every stored subscriber — used by the manual
+// admin "send to all" form.
 export async function broadcastNotification({ title, body, url = "/" }) {
   const subs = await getAllSubscriptions();
-  const payload = JSON.stringify({ title, body, url });
+  await Promise.all(subs.map((row) => broadcastToOne(row, { title, body, url })));
+}
 
-  await Promise.all(
-    subs.map(async (row) => {
-      try {
-        await webpush.sendNotification(row.subscription, payload);
-      } catch (err) {
-        if (err.statusCode === 404 || err.statusCode === 410) {
-          await removeByEndpoint(row.endpoint);
-        } else {
-          console.error("Push send error:", err.message);
-        }
-      }
-    })
-  );
+// Sends to a single subscriber row — used by the auto-check job, which
+// targets specific people rather than everyone at once.
+export async function broadcastToOne(row, { title, body, url = "/" }) {
+  const payload = JSON.stringify({ title, body, url });
+  try {
+    await webpush.sendNotification(row.subscription, payload);
+  } catch (err) {
+    if (err.statusCode === 404 || err.statusCode === 410) {
+      await removeByEndpoint(row.endpoint);
+    } else {
+      console.error("Push send error:", err.message);
+    }
+  }
 }
