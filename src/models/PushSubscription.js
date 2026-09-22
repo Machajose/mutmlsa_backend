@@ -37,3 +37,10 @@ export async function getAllSubscriptions() {
 export async function removeByEndpoint(endpoint) {
   await pool.query(`DELETE FROM push_subscriptions WHERE endpoint = $1`, [endpoint]);
 }
+export async function isAlreadySubscribed() {
+  if (!(await isPushSupported())) return false;
+  const registration = await navigator.serviceWorker.getRegistration();
+  if (!registration) return false;
+  const subscription = await registration.pushManager.getSubscription();
+  return !!subscription;
+}
