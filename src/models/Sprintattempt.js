@@ -44,3 +44,10 @@ export async function getSprintLeaderboard(week, limit = 10) {
   );
   return result.rows;
 }
+export async function renameAttempt(id, newName) {
+  const result = await pool.query(
+    `UPDATE quiz_attempts SET name = $2 WHERE id = $1 RETURNING *`, // sprint_attempts for the other file
+    [id, newName]
+  );
+  return result.rows[0];
+}
