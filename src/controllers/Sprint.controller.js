@@ -31,11 +31,12 @@ export async function fetchAttemptHandler(req, res) {
   }
 }
 
-export async function sprintLeaderboardHandler(req, res) {
+export async function SprintLeaderboard(req, res) {
   const { week } = req.query;
+  const limit = req.query.full === "true" ? 1000 : 10;
   if (!week) return res.status(400).json({ error: "week is required." });
   try {
-    const board = await getSprintLeaderboard(week, 10);
+    const board = await getSprintLeaderboard(week, limit);
     res.json({ leaderboard: board });
   } catch (err) {
     res.status(500).json({ error: "Could not fetch leaderboard." });

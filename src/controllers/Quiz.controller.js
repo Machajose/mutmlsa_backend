@@ -36,14 +36,16 @@ export async function fetchAttempt(req, res) {
 
 export async function quizLeaderboard(req, res) {
   const { week } = req.query;
+  const limit = req.query.full === "true" ? 1000 : 10;
   if (!week) return res.status(400).json({ error: "week is required." });
   try {
-    const board = await getQuizLeaderboard(week, 10);
+    const board = await getQuizLeaderboard(week, limit);
     res.json({ leaderboard: board });
   } catch (err) {
     res.status(500).json({ error: "Could not fetch leaderboard." });
   }
 }
+
 export async function weeklyChampions(req, res) {
   const periods = getPeriodsThisWeek(2);
   const champions = [];
