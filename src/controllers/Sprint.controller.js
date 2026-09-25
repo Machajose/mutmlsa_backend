@@ -31,7 +31,7 @@ export async function fetchAttemptHandler(req, res) {
   }
 }
 
-export async function SprintLeaderboard(req, res) {
+export async function sprintLeaderboardHandler(req, res) {
   const { week } = req.query;
   const limit = req.query.full === "true" ? 1000 : 10;
   if (!week) return res.status(400).json({ error: "week is required." });
