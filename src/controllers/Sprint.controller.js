@@ -1,6 +1,6 @@
-import { submitSprintAttempt, getSprintAttempt, getSprintLeaderboard } from "../models/Sprintattempt.js";
+import { submitSprintAttempt, getSprintAttempt, getSprintLeaderboard } from "../models/SprintAttempt.js";
 import pool from "../config/db.js";
-import { getPeriodsThisWeek } from "../utils/periodId.js";
+import { formatPeriodLabel } from "../utils/periodId.js";
 
 export async function submitAttemptHandler(req, res) {
   const { week, name, score } = req.body;
@@ -43,25 +43,29 @@ export async function sprintLeaderboardHandler(req, res) {
   }
 }
 
-export async function weeklyChampions(req, res) {
+export async function champsByPeriod(req, res) {
   try {
-    const periods = getPeriodsThisWeek(2);
-    const champions = [];
+    const periodsResult = await pool.query(
+      `SELECT DISTINCT week FROM sprint_attempts ORDER BY week DESC`
+    );
+    const periods = periodsResult.rows.map((r) => r.week);
 
+    const data = [];
     for (const period of periods) {
-      const result = await pool.query(
-        `SELECT name, score FROM sprint_attempts WHERE week = $1 ORDER BY score DESC LIMIT 1`,
+      const topResult = await pool.query(
+        `SELECT name, score FROM sprint_attempts WHERE week = $1 ORDER BY score DESC LIMIT 3`,
         [period]
       );
-      if (result.rows[0]) {
-        champions.push({ period, ...result.rows[0] });
-      }
+      data.push({
+        period,
+        label: formatPeriodLabel(period, 2),
+        top: topResult.rows,
+      });
     }
 
-    res.json({ champions });
+    res.json({ periods: data });
   } catch (err) {
-    console.error("Error fetching weekly sprint champions:", err);
+    console.error("Error fetching sprint champions by period:", err);
     res.status(500).json({ error: "Could not fetch champions." });
   }
 }
-
