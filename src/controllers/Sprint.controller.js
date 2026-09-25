@@ -1,4 +1,4 @@
-import { submitSprintAttempt, getSprintAttempt, getSprintLeaderboard } from "../models/SprintAttempt.js";
+import { submitSprintAttempt, getSprintAttempt, getSprintLeaderboard } from "../models/Sprintattempt.js";
 import pool from "../config/db.js";
 import { formatPeriodLabel } from "../utils/periodId.js";
 
