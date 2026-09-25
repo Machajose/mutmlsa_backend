@@ -44,18 +44,24 @@ export async function sprintLeaderboardHandler(req, res) {
 }
 
 export async function weeklyChampions(req, res) {
-  const periods = getPeriodsThisWeek(2);
-  const champions = [];
+  try {
+    const periods = getPeriodsThisWeek(2);
+    const champions = [];
 
-  for (const period of periods) {
-    const result = await pool.query(
-      `SELECT name, score, total FROM sprint_attempts WHERE week = $1 ORDER BY score DESC LIMIT 1`,
-      [period]
-    );
-    if (result.rows[0]) {
-      champions.push({ period, ...result.rows[0] });
+    for (const period of periods) {
+      const result = await pool.query(
+        `SELECT name, score FROM sprint_attempts WHERE week = $1 ORDER BY score DESC LIMIT 1`,
+        [period]
+      );
+      if (result.rows[0]) {
+        champions.push({ period, ...result.rows[0] });
+      }
     }
-  }
 
-  res.json({ champions });
+    res.json({ champions });
+  } catch (err) {
+    console.error("Error fetching weekly sprint champions:", err);
+    res.status(500).json({ error: "Could not fetch champions." });
+  }
 }
+
