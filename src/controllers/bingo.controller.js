@@ -74,12 +74,11 @@ export async function fillSquareHandler(req, res) {
   }
 }
 
+
 export async function leaderboard(req, res) {
-  const { week } = req.query;
   const limit = req.query.full === "true" ? 1000 : 10;
-  if (!week) return res.status(400).json({ error: "week is required." });
   try {
-    const board = await getLeaderboard(week, limit);
+    const board = await getLeaderboard(limit);
     res.json({ leaderboard: board });
   } catch (err) {
     res.status(500).json({ error: "Could not fetch leaderboard." });
