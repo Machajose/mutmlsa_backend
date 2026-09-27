@@ -80,3 +80,18 @@ export async function setRegistrationPaid(memberId, paid) {
   );
   return result.rows[0];
 }
+export async function findMemberOrApplicantByName(name) {
+  const memberResult = await pool.query(
+    `SELECT * FROM members WHERE full_name ILIKE $1 LIMIT 1`,
+    [name]
+  );
+  if (memberResult.rows[0]) return { found: true, type: "member" };
+
+  const appResult = await pool.query(
+    `SELECT * FROM membership_applications WHERE full_name ILIKE $1 LIMIT 1`,
+    [name]
+  );
+  if (appResult.rows[0]) return { found: true, type: "applicant" };
+
+  return { found: false };
+}
