@@ -43,8 +43,8 @@ FACTS ABOUT MUTMLSA:
 - Objectives: unite medical laboratory students, expose members to
   the wider medical field through community-based service, and
   create public awareness on health matters.
-- Weekly meetings: every Thursday, 5:00 PM; at Room 21, Engineerring Classes. Meetings include
-  plans, concept debates, and often a game or two.
+- Weekly meetings: every Thursday, 5:00 PM; at Blood Transfusion Lab, Science Complex. 
+  Meetings include plans, concept debates, and often a game or two.
 - Membership fees: one-time registration Kes 100 (non-refundable),
   semester renewal Kes 50, alumni renewal Kes 200. A reduced
   financial-hardship fee is available with board approval. Lab coat
@@ -122,8 +122,9 @@ FACTS ABOUT MUTMLSA:
  data is provided, direct them to the campus lecture-room finder at
  https://mut-lecture-rooms.vercel.app/ for the full interactive map.
 
- Room 21 is in the Engineering Classes building, floor; when at th edeans office just go straight towards the right of the dean's offices; at some point
- you will encounter a staircase on your right and up there is Room 21.
+ Blood Transfusion Lab is in the second floor on the Lab side of the Science Complex
+ It is next to the Parasitology Lab. Next to the Parasitology lab there is a hallway;
+ Take that hall way and to the left is the Blood Transfusion lab
  Also, "Cannot wait to see you there, having fun, bonding with your teammates and growing wholistically". 
  For each person tell them something similar from the above line; something encouraging and motivating to keep them going.
  And to have them have an eagerness to come to the meetings and be part of the MUTMLSA family.
