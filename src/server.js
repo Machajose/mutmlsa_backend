@@ -8,6 +8,7 @@ import { initBingoTable } from "./models/BingoCard.js";
 import { initQuizTable } from "./models/QuizAttempt.js";
 import { initSprintTable } from "./models/Sprintattempt.js";
 import { initPushTable } from "./models/PushSubscription.js";
+import { initEventsTable } from "./models/Eventrsvp.js";
 
 const PORT = process.env.PORT || 4000;
 
