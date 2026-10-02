@@ -21,6 +21,7 @@ async function start() {
     await initQuizTable();
     await initSprintTable();
     await initPushTable();
+    await initEventsTable();
     console.log("Database tables ready.");
 
     app.listen(PORT, () => {
