@@ -20,21 +20,6 @@ export async function listEvents(req, res) {
   }
 }
 
-export async function rsvp(req, res) {
-  const { eventId } = req.params;
-  const { name } = req.body;
-  if (!name || !name.trim()) {
-    return res.status(400).json({ error: "Name is required." });
-  }
-  try {
-    await addRsvp(eventId, name.trim());
-    const match = await findMemberOrApplicantByName(name.trim());
-    res.status(201).json({ ok: true, recognized: match.found });
-  } catch (err) {
-    console.error("Error adding RSVP:", err);
-    res.status(500).json({ error: "Could not RSVP." });
-  }
-}
 
 export async function cancelRsvp(req, res) {
   const { eventId } = req.params;
