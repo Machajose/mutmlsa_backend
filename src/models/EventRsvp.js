@@ -26,15 +26,6 @@ export async function initEventsTable() {
   `);
 }
 
-export async function addRsvp(eventId, name) {
-  const result = await pool.query(
-    `INSERT INTO event_rsvps (event_id, name) VALUES ($1, $2)
-     ON CONFLICT (event_id, name) DO NOTHING
-     RETURNING *`,
-    [eventId, name]
-  );
-  return result.rows[0];
-}
 
 export async function removeRsvp(eventId, name) {
   await pool.query(`DELETE FROM event_rsvps WHERE event_id = $1 AND name ILIKE $2`, [eventId, name]);
