@@ -8,7 +8,7 @@ import { initBingoTable } from "./models/BingoCard.js";
 import { initQuizTable } from "./models/QuizAttempt.js";
 import { initSprintTable } from "./models/Sprintattempt.js";
 import { initPushTable } from "./models/PushSubscription.js";
-import { initEventsTable } from "./models/EventRsvp.js";
+import { initEventsTable, initEventRsvpTable } from "./models/EventRsvp.js";
 
 const PORT = process.env.PORT || 4000;
 
@@ -23,6 +23,7 @@ async function start() {
     await initSprintTable();
     await initPushTable();
     await initEventsTable();
+    await initEventRsvpTable();
     console.log("Database tables ready.");
 
     app.listen(PORT, () => {
