@@ -11,6 +11,7 @@ import quizRoutes from "./routes/Quiz.routes.js";
 import sprintRoutes from "./routes/Sprint.routes.js";
 import pushRoutes from "./routes/push.routes.js"
 import notifyRoutes from "./routes/notify.routes.js";
+import eventsRoutes from "./routes/Event.route.js";
 
 const app = express();
 
@@ -56,7 +57,7 @@ app.use("/api/quiz", quizRoutes);
 app.use("/api/sprint", sprintRoutes);
 app.use("/api/push", pushRoutes);
 app.use("/api/notify", notifyRoutes);
-
+app.use("/api/events", eventsRoutes);
 // Catch-all 404
 app.use((req, res) => {
   res.status(404).json({ error: "Not found." });
