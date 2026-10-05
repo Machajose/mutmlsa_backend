@@ -55,25 +55,43 @@ export async function getAllEvents() {
   return result.rows;
 }
 
-export async function createEvent({ dateLabel, tag, title, description, sortOrder }) {
+export async function createEvent({ dateLabel, tag, title, description, sortOrder, eventDate }) {
   const result = await pool.query(
-    `INSERT INTO events (date_label, tag, title, description, sort_order)
-     VALUES ($1, $2, $3, $4, $5)
+    `INSERT INTO events (date_label, tag, title, description, sort_order, event_date)
+     VALUES ($1, $2, $3, $4, $5, $6)
      RETURNING *`,
-    [dateLabel, tag || null, title, description || null, sortOrder || 0]
+    [dateLabel, tag || null, title, description || null, sortOrder || 0, eventDate || null]
   );
   return result.rows[0];
 }
 
-export async function updateEvent(id, { dateLabel, tag, title, description, sortOrder }) {
+export async function updateEvent(id, { dateLabel, tag, title, description, sortOrder, eventDate }) {
   const result = await pool.query(
-    `UPDATE events SET date_label = $2, tag = $3, title = $4, description = $5, sort_order = $6
+    `UPDATE events SET date_label = $2, tag = $3, title = $4, description = $5, sort_order = $6, event_date = $7
      WHERE id = $1 RETURNING *`,
-    [id, dateLabel, tag || null, title, description || null, sortOrder || 0]
+    [id, dateLabel, tag || null, title, description || null, sortOrder || 0, eventDate || null]
   );
   return result.rows[0];
 }
 
 export async function deleteEvent(id) {
   await pool.query(`DELETE FROM events WHERE id = $1`, [id]);
+}
+
+export async function addRsvp(eventId, name, email) {
+  const result = await pool.query(
+    `INSERT INTO event_rsvps (event_id, name, email) VALUES ($1, $2, $3)
+     ON CONFLICT (event_id, name) DO UPDATE SET email = EXCLUDED.email
+     RETURNING *`,
+    [eventId, name, email || null]
+  );
+  return result.rows[0];
+}
+
+export async function getRsvpsForEvent(eventId) {
+  const result = await pool.query(
+    `SELECT name, email, created_at FROM event_rsvps WHERE event_id = $1 ORDER BY created_at ASC`,
+    [eventId]
+  );
+  return result.rows;
 }

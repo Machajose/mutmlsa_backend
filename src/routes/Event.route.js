@@ -10,6 +10,7 @@ import {
   adminUpdateEvent,
   adminDeleteEvent,
 } from "../controllers/events.controller.js";
+import { adminListRsvps } from "../controllers/events.controller.js";
 
 const router = Router();
 
@@ -23,5 +24,6 @@ router.delete("/:eventId/rsvp", formLimiter, cancelRsvp);
 router.post("/", adminAuth, adminCreateEvent);
 router.patch("/:id", adminAuth, adminUpdateEvent);
 router.delete("/:id", adminAuth, adminDeleteEvent);
+router.get("/:eventId/rsvps", adminAuth, adminListRsvps);
 
 export default router;

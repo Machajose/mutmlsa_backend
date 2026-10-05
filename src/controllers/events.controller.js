@@ -6,6 +6,7 @@ import {
 } from "../models/EventRsvp.js";
 import { addRsvp, removeRsvp, getAllRsvpCounts } from "../models/EventRsvp.js";
 import { findMemberOrApplicantByName } from "../models/Member.js";
+import { getRsvpsForEvent } from "../models/EventRsvp.js";
 
 // --- Public ---
 
@@ -100,5 +101,32 @@ export async function adminDeleteEvent(req, res) {
   } catch (err) {
     console.error("Error deleting event:", err);
     res.status(500).json({ error: "Could not delete event." });
+  }
+}
+
+export async function rsvp(req, res) {
+  const { eventId } = req.params;
+  const { name, email } = req.body; // add email here
+  if (!name || !name.trim()) {
+    return res.status(400).json({ error: "Name is required." });
+  }
+  try {
+    await addRsvp(eventId, name.trim(), email?.trim());
+    const match = await findMemberOrApplicantByName(name.trim());
+    res.status(201).json({ ok: true, recognized: match.found });
+  } catch (err) {
+    console.error("Error adding RSVP:", err);
+    res.status(500).json({ error: "Could not RSVP." });
+  }
+}
+
+export async function adminListRsvps(req, res) {
+  const { eventId } = req.params;
+  try {
+    const rsvps = await getRsvpsForEvent(eventId);
+    res.json({ rsvps });
+  } catch (err) {
+    console.error("Error fetching RSVPs:", err);
+    res.status(500).json({ error: "Could not fetch RSVPs." });
   }
 }
