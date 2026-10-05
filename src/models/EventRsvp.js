@@ -12,6 +12,20 @@ export async function initEventRsvpTable() {
   `);
 }
 
+export async function initEventsTable() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS events (
+      id SERIAL PRIMARY KEY,
+      date_label TEXT NOT NULL,
+      tag TEXT,
+      title TEXT NOT NULL,
+      description TEXT,
+      sort_order INTEGER NOT NULL DEFAULT 0,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    );
+  `);
+}
+
 export async function addRsvp(eventId, name) {
   const result = await pool.query(
     `INSERT INTO event_rsvps (event_id, name) VALUES ($1, $2)
