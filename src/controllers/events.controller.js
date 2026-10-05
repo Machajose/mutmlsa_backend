@@ -3,7 +3,7 @@ import {
   createEvent,
   updateEvent,
   deleteEvent,
-} from "../models/Event.js";
+} from "../models/EventRsvp.js";
 import { addRsvp, removeRsvp, getAllRsvpCounts } from "../models/EventRsvp.js";
 import { findMemberOrApplicantByName } from "../models/Member.js";
 
