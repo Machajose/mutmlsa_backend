@@ -53,7 +53,7 @@ export async function addMember(req, res) {
   }
 
   try {
-    const member = await createMember({ fullName, email, phone, yearOfStudy });
+    const member = await createMember({ fullName, email, phone, yearOfStudy, registrationNumber: req.body.registrationNumber, });
 
     if (applicationId) {
       await markApplicationConfirmed(applicationId);

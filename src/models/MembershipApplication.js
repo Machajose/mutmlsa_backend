@@ -15,7 +15,7 @@ export async function initMembershipTable() {
   `);
 }
 
-export async function createApplication({ fullName, yearOfStudy, phone, email, message }) {
+export async function createApplication({ fullName, yearOfStudy, phone, email, message, registrationNumber }) {
   const existing = await pool.query(
     `SELECT * FROM membership_applications WHERE email = $1 AND status = 'pending' LIMIT 1`,
     [email]
@@ -25,14 +25,13 @@ export async function createApplication({ fullName, yearOfStudy, phone, email, m
   }
 
   const result = await pool.query(
-    `INSERT INTO membership_applications (full_name, year_of_study, phone, email, message)
-     VALUES ($1, $2, $3, $4, $5)
+    `INSERT INTO membership_applications (full_name, year_of_study, phone, email, message, registration_number)
+     VALUES ($1, $2, $3, $4, $5, $6)
      RETURNING *`,
-    [fullName, yearOfStudy || null, phone || null, email, message || null]
+    [fullName, yearOfStudy || null, phone || null, email, message || null, registrationNumber || null]
   );
   return result.rows[0];
 }
-
 export async function getAllApplications() {
   const result = await pool.query(
     `SELECT * FROM membership_applications ORDER BY created_at DESC`

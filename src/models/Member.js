@@ -26,17 +26,33 @@ export async function initMembersTable() {
   `);
 }
 
-export async function createMember({ fullName, email, phone, yearOfStudy }) {
+export async function createMember({ fullName, email, phone, yearOfStudy, registrationNumber }) {
   if (email) {
     const existing = await pool.query(
       `SELECT * FROM members WHERE email = $1 LIMIT 1`,
       [email]
     );
     if (existing.rows.length > 0) {
+      if (registrationNumber && !existing.rows[0].registration_number) {
+        const updated = await pool.query(
+          `UPDATE members SET registration_number = $2 WHERE id = $1 RETURNING *`,
+          [existing.rows[0].id, registrationNumber]
+        );
+        return updated.rows[0];
+      }
       return existing.rows[0];
     }
   }
 
+  const result = await pool.query(
+    `INSERT INTO members (full_name, email, phone, year_of_study, registration_number, registration_paid)
+     VALUES ($1, $2, $3, $4, $5, false)
+     RETURNING *`,
+    [fullName, email || null, phone || null, yearOfStudy || null, registrationNumber || null]
+  );
+  return result.rows[0];
+}
+{
   // registration_paid now defaults to false — confirming someone as a
   // member no longer implies they've paid; that's tracked separately.
   const result = await pool.query(

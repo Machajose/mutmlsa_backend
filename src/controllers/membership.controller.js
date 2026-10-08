@@ -1,16 +1,18 @@
 import { createApplication, getAllApplications } from "../models/MembershipApplication.js";
 import { notifyCommittee } from "../config/email.js";
+import { normalizeRegNumber, isValidRegNumber } from "../utils/regNumber.js";
 
 export async function applyForMembership(req, res) {
-  const { fullName, yearOfStudy, phone, email, message } = req.body;
+  const { fullName, yearOfStudy, phone, email, message, registrationNumber } = req.body;
 
   if (!fullName || !email) {
     return res.status(400).json({ error: "Full name and email are required." });
   }
-
+if (registrationNumber && !isValidRegNumber(registrationNumber)) {
+  return res.status(400).json({ error: "Registration number looks off — expected something like MS200/__/2023." });
+}
   try {
-    const application = await createApplication({ fullName, yearOfStudy, phone, email, message });
-
+    const application = await createApplication({ fullName, yearOfStudy, phone, email, message, registrationNumber: registrationNumber ? normalizeRegNumber(registrationNumber) : undefined });
     if (application.alreadySubmitted) {
       return res.status(200).json({
         success: true,
