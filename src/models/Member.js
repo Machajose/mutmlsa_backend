@@ -95,3 +95,15 @@ export async function findMemberOrApplicantByName(name) {
 
   return { found: false };
 }
+export async function getMemberByEmail(email) {
+  const result = await pool.query(`SELECT * FROM members WHERE email = $1 LIMIT 1`, [email]);
+  return result.rows[0];
+}
+
+export async function getMemberPayment(memberId, academicYear, semester) {
+  const result = await pool.query(
+    `SELECT * FROM semester_payments WHERE member_id = $1 AND academic_year = $2 AND semester = $3`,
+    [memberId, academicYear, semester]
+  );
+  return result.rows[0];
+}

@@ -9,6 +9,9 @@ import {
   getPendingApplications,
   markApplicationConfirmed,
 } from "../models/MembershipApplication.js";
+import { getMemberByEmail, getMemberPayment } from "../models/Member.js";
+
+const CURRENT_PERIOD = { academicYear: "2026/2027", semester: "Sem 1" };
 
 export async function listMembers(req, res) {
   try {
@@ -99,5 +102,33 @@ export async function updateRegistration(req, res) {
   } catch (err) {
     console.error("Error updating registration status:", err);
     res.status(500).json({ error: "Could not update registration status." });
+  }
+}
+
+
+export async function checkMemberStatus(req, res) {
+  const { email } = req.query;
+  if (!email || !email.trim()) {
+    return res.status(400).json({ error: "Email is required." });
+  }
+
+  try {
+    const member = await getMemberByEmail(email.trim());
+    if (!member) {
+      return res.status(404).json({ error: "No member found with that email." });
+    }
+
+    const payment = await getMemberPayment(member.id, CURRENT_PERIOD.academicYear, CURRENT_PERIOD.semester);
+
+    res.json({
+      fullName: member.full_name,
+      registrationPaid: member.registration_paid,
+      semesterPaid: payment?.paid || false,
+      academicYear: CURRENT_PERIOD.academicYear,
+      semester: CURRENT_PERIOD.semester,
+    });
+  } catch (err) {
+    console.error("Error checking member status:", err);
+    res.status(500).json({ error: "Could not check status." });
   }
 }

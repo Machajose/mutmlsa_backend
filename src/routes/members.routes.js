@@ -13,7 +13,7 @@ import {
 
 const router = Router();
 
-router.get("/status", formLimiter, checkMemberStatus);
+
 
 router.get("/", adminAuth, listMembers);
 router.get("/pending-applications", adminAuth, listPendingApplications);
