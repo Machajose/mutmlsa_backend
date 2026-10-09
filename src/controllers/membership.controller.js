@@ -32,17 +32,20 @@ export async function applyForMembership(req, res) {
         application,
       });
     }
-
-    await notifyCommittee(
-      "New MUTMLSA membership application",
-      `<h2>New membership application</h2>
-       <p><strong>Name:</strong> ${fullName}</p>
-       <p><strong>Registration no.:</strong> ${registrationNumber ? normalizeRegNumber(registrationNumber) : "—"}</p>
-       <p><strong>Year of study:</strong> ${yearOfStudy || "—"}</p>
-       <p><strong>Phone:</strong> ${phone || "—"}</p>
-       <p><strong>Email:</strong> ${email}</p>
-       <p><strong>Message:</strong> ${message || "—"}</p>`
-    );
+    try {
+      await notifyCommittee(
+        "New MUTMLSA membership application",
+        `<h2>New membership application</h2>
+         <p><strong>Name:</strong> ${fullName}</p>
+         <p><strong>Registration no.:</strong> ${registrationNumber ? normalizeRegNumber(registrationNumber) : "—"}</p>
+         <p><strong>Year of study:</strong> ${yearOfStudy || "—"}</p>
+         <p><strong>Phone:</strong> ${phone || "—"}</p>
+         <p><strong>Email:</strong> ${email}</p>
+         <p><strong>Message:</strong> ${message || "—"}</p>`
+      );
+    } catch (emailErr) {
+      console.error("Committee email failed:", emailErr);
+    }
 
     res.status(201).json({ success: true, application });
   } catch (err) {
