@@ -4,12 +4,15 @@ import {
   getPaymentsForPeriod,
   setPaymentStatus,
   setRegistrationPaid,
+  setRegistrationNumber,
+  getMemberByEmail,
+  getMemberPayment,
 } from "../models/Member.js";
 import {
   getPendingApplications,
   markApplicationConfirmed,
 } from "../models/MembershipApplication.js";
-import { getMemberByEmail, getMemberPayment } from "../models/Member.js";
+import { normalizeRegNumber, isValidRegNumber } from "../utils/regNumber.js";
 
 const CURRENT_PERIOD = { academicYear: "2026/2027", semester: "Sem 1" };
 
@@ -46,14 +49,20 @@ export async function listPendingApplications(req, res) {
 }
 
 export async function addMember(req, res) {
-  const { fullName, email, phone, yearOfStudy, applicationId } = req.body;
+  const { fullName, email, phone, yearOfStudy, applicationId, registrationNumber } = req.body;
 
   if (!fullName) {
     return res.status(400).json({ error: "Full name is required." });
   }
 
   try {
-    const member = await createMember({ fullName, email, phone, yearOfStudy, registrationNumber: req.body.registrationNumber, });
+    const member = await createMember({
+      fullName,
+      email,
+      phone,
+      yearOfStudy,
+      registrationNumber: registrationNumber ? normalizeRegNumber(registrationNumber) : undefined,
+    });
 
     if (applicationId) {
       await markApplicationConfirmed(applicationId);
@@ -105,6 +114,26 @@ export async function updateRegistration(req, res) {
   }
 }
 
+export async function updateRegistrationNumber(req, res) {
+  const { id } = req.params;
+  const raw = (req.body.registrationNumber || "").trim();
+
+  if (raw && !isValidRegNumber(raw)) {
+    return res.status(400).json({ error: "Invalid format — expected something like MS200/2535/2023." });
+  }
+
+  try {
+    const member = await setRegistrationNumber(Number(id), raw ? normalizeRegNumber(raw) : null);
+    if (!member) return res.status(404).json({ error: "Member not found." });
+    res.json({ member });
+  } catch (err) {
+    if (err.code === "23505") {
+      return res.status(409).json({ error: "That registration number is already linked to another member." });
+    }
+    console.error("Error saving registration number:", err);
+    res.status(500).json({ error: "Could not save." });
+  }
+}
 
 export async function checkMemberStatus(req, res) {
   const { email } = req.query;
@@ -118,7 +147,11 @@ export async function checkMemberStatus(req, res) {
       return res.status(404).json({ error: "No member found with that email." });
     }
 
-    const payment = await getMemberPayment(member.id, CURRENT_PERIOD.academicYear, CURRENT_PERIOD.semester);
+    const payment = await getMemberPayment(
+      member.id,
+      CURRENT_PERIOD.academicYear,
+      CURRENT_PERIOD.semester
+    );
 
     res.json({
       fullName: member.full_name,

@@ -44,22 +44,13 @@ export async function createMember({ fullName, email, phone, yearOfStudy, regist
     }
   }
 
+  // registration_paid defaults to false — confirming someone as a member
+  // no longer implies they've paid; that's tracked separately.
   const result = await pool.query(
     `INSERT INTO members (full_name, email, phone, year_of_study, registration_number, registration_paid)
      VALUES ($1, $2, $3, $4, $5, false)
      RETURNING *`,
     [fullName, email || null, phone || null, yearOfStudy || null, registrationNumber || null]
-  );
-  return result.rows[0];
-}
-{
-  // registration_paid now defaults to false — confirming someone as a
-  // member no longer implies they've paid; that's tracked separately.
-  const result = await pool.query(
-    `INSERT INTO members (full_name, email, phone, year_of_study, registration_paid)
-     VALUES ($1, $2, $3, $4, false)
-     RETURNING *`,
-    [fullName, email || null, phone || null, yearOfStudy || null]
   );
   return result.rows[0];
 }
@@ -96,6 +87,15 @@ export async function setRegistrationPaid(memberId, paid) {
   );
   return result.rows[0];
 }
+
+export async function setRegistrationNumber(memberId, regNumber) {
+  const result = await pool.query(
+    `UPDATE members SET registration_number = $2 WHERE id = $1 RETURNING *`,
+    [memberId, regNumber]
+  );
+  return result.rows[0];
+}
+
 export async function findMemberOrApplicantByName(name) {
   const memberResult = await pool.query(
     `SELECT * FROM members WHERE full_name ILIKE $1 LIMIT 1`,
@@ -111,6 +111,7 @@ export async function findMemberOrApplicantByName(name) {
 
   return { found: false };
 }
+
 export async function getMemberByEmail(email) {
   const result = await pool.query(`SELECT * FROM members WHERE email = $1 LIMIT 1`, [email]);
   return result.rows[0];
