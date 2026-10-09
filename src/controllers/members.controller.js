@@ -11,6 +11,7 @@ import {
 import {
   getPendingApplications,
   markApplicationConfirmed,
+  setApplicationRegistrationNumber,
 } from "../models/MembershipApplication.js";
 import { normalizeRegNumber, isValidRegNumber } from "../utils/regNumber.js";
 
@@ -163,5 +164,22 @@ export async function checkMemberStatus(req, res) {
   } catch (err) {
     console.error("Error checking member status:", err);
     res.status(500).json({ error: "Could not check status." });
+  }
+}
+export async function updateApplicationRegistrationNumber(req, res) {
+  const { id } = req.params;
+  const raw = (req.body.registrationNumber || "").trim();
+
+  if (raw && !isValidRegNumber(raw)) {
+    return res.status(400).json({ error: "Invalid format — expected something like MS200/2535/2023." });
+  }
+
+  try {
+    const application = await setApplicationRegistrationNumber(Number(id), raw ? normalizeRegNumber(raw) : null);
+    if (!application) return res.status(404).json({ error: "Application not found." });
+    res.json({ application });
+  } catch (err) {
+    console.error("Error saving application registration number:", err);
+    res.status(500).json({ error: "Could not save." });
   }
 }

@@ -53,3 +53,10 @@ export async function markApplicationConfirmed(id) {
   );
   return result.rows[0];
 }
+export async function setApplicationRegistrationNumber(id, regNumber) {
+  const result = await pool.query(
+    `UPDATE membership_applications SET registration_number = $2 WHERE id = $1 RETURNING *`,
+    [id, regNumber]
+  );
+  return result.rows[0];
+}
