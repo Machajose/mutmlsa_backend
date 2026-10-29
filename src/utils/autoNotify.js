@@ -1,20 +1,36 @@
 import pool from "../config/db.js";
 import { getAllSubscriptions } from "../models/PushSubscription.js";
 import { broadcastToOne } from "./sendPush.js";
-
-// IMPORTANT: keep these in sync with WEEK_ID in Quiz.jsx and
-// SpeedRound.jsx — same manual-sync pattern as auditContext.js needing a
-// copy in both frontend and backend.
-const CURRENT_QUIZ_WEEK = "2026-W39";
-const CURRENT_SPRINT_WEEK = "2026-W39";
+import { getCurrentPeriodId, getCurrentWeekId } from "./periodId.js";
 
 const INACTIVITY_DAYS = 3;
+const NUDGE_COOLDOWN_HOURS = 24; // "come play" nudges at most once a day per person
 
-async function getFullBingoRanking() {
-  const result = await pool.query(`SELECT id, name, filled_squares, updated_at FROM bingo_cards`);
+let columnsReady = false;
+async function ensureColumns() {
+  if (columnsReady) return;
+  const cols = [
+    "last_bingo_rank INTEGER",
+    "last_quiz_rank INTEGER",
+    "last_sprint_rank INTEGER",
+    "last_bingo_round TEXT",
+    "last_quiz_round TEXT",
+    "last_sprint_round TEXT",
+    "last_notified_at TIMESTAMPTZ",
+  ];
+  for (const c of cols) {
+    await pool.query(`ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS ${c}`);
+  }
+  columnsReady = true;
+}
+
+async function getBingoRanking(round) {
+  const result = await pool.query(
+    `SELECT id, name, filled_squares, updated_at FROM bingo_cards WHERE round = $1`,
+    [round]
+  );
   return result.rows
     .map((c) => ({
-      id: c.id,
       name: c.name,
       score: Object.keys(c.filled_squares || {}).length,
       updatedAt: c.updated_at,
@@ -22,12 +38,12 @@ async function getFullBingoRanking() {
     .sort((a, b) => b.score - a.score);
 }
 
-async function getFullRanking(table, week) {
+async function getAttemptRanking(table, round) {
   const result = await pool.query(
-    `SELECT id, name, score FROM ${table} WHERE week = $1`,
-    [week]
+    `SELECT name, score FROM ${table} WHERE week = $1 ORDER BY score DESC, created_at ASC`,
+    [round]
   );
-  return result.rows.sort((a, b) => b.score - a.score);
+  return result.rows;
 }
 
 function findRank(ranking, name) {
@@ -35,108 +51,101 @@ function findRank(ranking, name) {
   return idx === -1 ? null : { rank: idx + 1, entry: ranking[idx] };
 }
 
+const RANK_MESSAGES = {
+  bingo: (rank, up) =>
+    up
+      ? { title: "You moved up!", body: `Nice — you're now #${rank} on the Bingo leaderboard. Keep filling squares to climb higher.`, url: "/#bingo" }
+      : { title: "You've been overtaken!", body: `Someone just passed you on the Bingo leaderboard (now #${rank}) — go reclaim your spot.`, url: "/#bingo" },
+  quiz: (rank, up) =>
+    up
+      ? { title: "Nice climb on the Quiz!", body: `You're now #${rank} on this round's quiz leaderboard.`, url: "/#quiz" }
+      : { title: "Slipped on the Quiz leaderboard", body: `You've dropped to #${rank} on this round's quiz — the next round is a fresh chance.`, url: "/#quiz" },
+  sprint: (rank, up) =>
+    up
+      ? { title: "Nice climb on the Sprint!", body: `You're now #${rank} on this round's speed round leaderboard.`, url: "/#speed-round" }
+      : { title: "Slipped on the Sprint leaderboard", body: `You've dropped to #${rank} on the speed round — try for a faster round.`, url: "/#speed-round" },
+};
+
 export async function runAutoCheck() {
+  await ensureColumns();
+
+  const bingoRound = getCurrentWeekId();
+  const quizRound = getCurrentPeriodId(2);
+  const sprintRound = getCurrentPeriodId(2);
+  const rounds = { bingo: bingoRound, quiz: quizRound, sprint: sprintRound };
+
   const subs = await getAllSubscriptions();
-  const bingoRanking = await getFullBingoRanking();
-  const quizRanking = await getFullRanking("quiz_attempts", CURRENT_QUIZ_WEEK);
-  const sprintRanking = await getFullRanking("sprint_attempts", CURRENT_SPRINT_WEEK);
+  const rankings = {
+    bingo: await getBingoRanking(bingoRound),
+    quiz: await getAttemptRanking("quiz_attempts", quizRound),
+    sprint: await getAttemptRanking("sprint_attempts", sprintRound),
+  };
 
   let sent = 0;
 
   for (const sub of subs) {
     if (!sub.name) continue;
 
-    const bingoMatch = findRank(bingoRanking, sub.name);
-    const quizMatch = findRank(quizRanking, sub.name);
-    const sprintMatch = findRank(sprintRanking, sub.name);
+    const matches = {
+      bingo: findRank(rankings.bingo, sub.name),
+      quiz: findRank(rankings.quiz, sub.name),
+      sprint: findRank(rankings.sprint, sub.name),
+    };
 
-    // Priority order: rank changes matter most, then a nudge to try
-    // something they haven't, then inactivity. Only one message per
-    // person per run, to avoid spamming several notifications at once.
-    let notified = false;
+    let message = null;
+    const updates = {};
 
-    // --- Bingo rank change (overtaken or moved up) ---
-    if (bingoMatch) {
-      const { rank } = bingoMatch;
-      if (sub.last_bingo_rank) {
-        if (rank > sub.last_bingo_rank) {
-          await broadcastToOne(sub, {
-            title: "You've been overtaken!",
-            body: `Someone just passed you on the Bingo leaderboard (now #${rank}) — go reclaim your spot.`,
-            url: "/#get-involved",
-          });
-          notified = true;
-        } else if (rank < sub.last_bingo_rank) {
-          await broadcastToOne(sub, {
-            title: "You moved up!",
-            body: `Nice — you're now #${rank} on the Bingo leaderboard. Keep filling squares to climb higher.`,
-            url: "/#get-involved",
-          });
-          notified = true;
+    // Rank changes only count within the same round — a new round resets
+    // everyone, so comparing across rounds would give false "overtaken" alerts.
+    for (const game of ["bingo", "quiz", "sprint"]) {
+      const match = matches[game];
+      if (!match) continue;
+      const prevRank = sub[`last_${game}_round`] === rounds[game] ? sub[`last_${game}_rank`] : null;
+      if (!message && prevRank && match.rank !== prevRank) {
+        message = RANK_MESSAGES[game](match.rank, match.rank < prevRank);
+      }
+      updates[`last_${game}_rank`] = match.rank;
+      updates[`last_${game}_round`] = rounds[game];
+    }
+
+    const hoursSinceLast = sub.last_notified_at
+      ? (Date.now() - new Date(sub.last_notified_at).getTime()) / 3600000
+      : Infinity;
+    const canNudge = hoursSinceLast >= NUDGE_COOLDOWN_HOURS;
+
+    if (!message && canNudge) {
+      if (!matches.bingo) {
+        message = {
+          title: "Haven't started this week's Bingo?",
+          body: "A fresh MUTMLSA Bingo board is live — jump in and start filling squares!",
+          url: "/#bingo",
+        };
+      } else {
+        const daysSinceActive =
+          (Date.now() - new Date(matches.bingo.entry.updatedAt).getTime()) / 86400000;
+        if (daysSinceActive >= INACTIVITY_DAYS) {
+          message = {
+            title: "We miss you at Bingo!",
+            body: "It's been a few days since you last played — your card is still waiting for you.",
+            url: "/#bingo",
+          };
         }
       }
-      await pool.query(`UPDATE push_subscriptions SET last_bingo_rank = $2 WHERE id = $1`, [sub.id, rank]);
     }
 
-    // --- Quiz rank change ---
-    if (!notified && quizMatch) {
-      const { rank } = quizMatch;
-      if (sub.last_quiz_rank && rank !== sub.last_quiz_rank) {
-        const improved = rank < sub.last_quiz_rank;
-        await broadcastToOne(sub, {
-          title: improved ? "Nice climb on the Quiz!" : "Slipped on the Quiz leaderboard",
-          body: improved
-            ? `You're now #${rank} on this week's quiz leaderboard.`
-            : `You've dropped to #${rank} on this week's quiz — one more good round could fix that.`,
-          url: "/#get-involved",
-        });
-        notified = true;
-      }
-      await pool.query(`UPDATE push_subscriptions SET last_quiz_rank = $2 WHERE id = $1`, [sub.id, rank]);
-    }
-
-    // --- Sprint rank change ---
-    if (!notified && sprintMatch) {
-      const { rank } = sprintMatch;
-      if (sub.last_sprint_rank && rank !== sub.last_sprint_rank) {
-        const improved = rank < sub.last_sprint_rank;
-        await broadcastToOne(sub, {
-          title: improved ? "Nice climb on the Sprint!" : "Slipped on the Sprint leaderboard",
-          body: improved
-            ? `You're now #${rank} on this week's speed round leaderboard.`
-            : `You've dropped to #${rank} on the speed round — try for a faster round.`,
-          url: "/#get-involved",
-        });
-        notified = true;
-      }
-      await pool.query(`UPDATE push_subscriptions SET last_sprint_rank = $2 WHERE id = $1`, [sub.id, rank]);
-    }
-
-    if (notified) {
+    if (message) {
+      await broadcastToOne(sub, message);
+      updates.last_notified_at = new Date();
       sent++;
-      continue;
     }
 
-    // --- Never started Bingo at all ---
-    if (!bingoMatch) {
-      await broadcastToOne(sub, {
-        title: "Haven't started Bingo yet?",
-        body: "This week's MUTMLSA Bingo card is live — jump in and start filling squares!",
-        url: "/#get-involved",
-      });
-      sent++;
-      continue;
-    }
-
-    // --- Has a Bingo card, but gone quiet for a few days ---
-    const daysSinceActive = (Date.now() - new Date(bingoMatch.entry.updatedAt).getTime()) / 86400000;
-    if (daysSinceActive >= INACTIVITY_DAYS) {
-      await broadcastToOne(sub, {
-        title: "We miss you at Bingo!",
-        body: `It's been a few days since you last played — your card is still waiting for you.`,
-        url: "/#get-involved",
-      });
-      sent++;
+    const cols = Object.keys(updates);
+    if (cols.length) {
+      const sets = cols.map((c, i) => `${c} = $${i + 2}`).join(", ");
+      await pool.query(`UPDATE push_subscriptions SET ${sets} WHERE id = $1`, [
+        sub.id,
+        ...cols.map((c) => updates[c]),
+      ]);
     }
   }
 

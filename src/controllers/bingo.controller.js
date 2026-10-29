@@ -1,5 +1,95 @@
+import {
+  createCard,
+  getCardById,
+  findCardsByName,
+  fillSquare,
+  getLeaderboard,
+  renameCard,
+} from "../models/BingoCard.js";
+import { getCurrentWeekId } from "../utils/periodId.js";
 
-import { createCard, getCardById, findCardsByName, fillSquare, getLeaderboard, renameCard } from "../models/BingoCard.js";
+export async function newCard(req, res) {
+  const { name } = req.body;
+  if (!name || !name.trim()) {
+    return res.status(400).json({ error: "Name is required." });
+  }
+  try {
+    const card = await createCard(name.trim(), getCurrentWeekId());
+    res.status(201).json({ card });
+  } catch (err) {
+    console.error("Error creating bingo card:", err);
+    res.status(500).json({ error: "Could not create card." });
+  }
+}
+
+export async function fetchCard(req, res) {
+  try {
+    const card = await getCardById(req.params.id);
+    if (!card) return res.status(404).json({ error: "Card not found." });
+    // currentRound lets the site tell whether this card belongs to an old round.
+    res.json({ card, currentRound: getCurrentWeekId() });
+  } catch (err) {
+    res.status(500).json({ error: "Could not fetch card." });
+  }
+}
+
+export async function searchByName(req, res) {
+  const { name } = req.query;
+  if (!name) return res.status(400).json({ error: "Name is required." });
+  try {
+    const cards = await findCardsByName(name, getCurrentWeekId());
+    res.json({ cards });
+  } catch (err) {
+    res.status(500).json({ error: "Could not search." });
+  }
+}
+
+export async function fillSquareHandler(req, res) {
+  const { id } = req.params;
+  const { squareIndex, personName } = req.body;
+
+  if (personName === undefined) {
+    return res.status(400).json({ error: "personName is required." });
+  }
+
+  const index = Number(squareIndex);
+  if (!Number.isInteger(index) || index < 0 || index > 24 || index === 12) {
+    return res.status(400).json({ error: "Invalid square." });
+  }
+
+  try {
+    const existing = await getCardById(id);
+    if (!existing) return res.status(404).json({ error: "Card not found." });
+
+    // A card from a finished round can no longer be edited.
+    if (existing.round !== getCurrentWeekId()) {
+      return res.status(409).json({
+        expired: true,
+        error: "This round has ended — a new board is live. Start a fresh card.",
+      });
+    }
+
+    const result = await fillSquare(id, index, personName.trim());
+    if (!result) return res.status(404).json({ error: "Card not found." });
+
+    const { card, justGotBingo, justGotBlackout } = result;
+    res.json({ card, justGotBingo, justGotBlackout });
+  } catch (err) {
+    console.error("Error filling square:", err);
+    res.status(500).json({ error: "Could not update card." });
+  }
+}
+
+export async function leaderboard(req, res) {
+  const limit = req.query.full === "true" ? 1000 : 10;
+  const round = getCurrentWeekId();
+  try {
+    const board = await getLeaderboard(limit, round);
+    res.json({ leaderboard: board, currentRound: round });
+  } catch (err) {
+    res.status(500).json({ error: "Could not fetch leaderboard." });
+  }
+}
 
 export async function renameCardHandler(req, res) {
   const { id } = req.params;
@@ -16,71 +106,5 @@ export async function renameCardHandler(req, res) {
   } catch (err) {
     console.error("Error renaming card:", err);
     res.status(500).json({ error: "Could not rename card." });
-  }
-}
-
-export async function newCard(req, res) {
-  const { name } = req.body;
-  if (!name || !name.trim()) {
-    return res.status(400).json({ error: "Name is required." });
-  }
-  try {
-    const card = await createCard(name.trim());
-    res.status(201).json({ card });
-  } catch (err) {
-    console.error("Error creating bingo card:", err);
-    res.status(500).json({ error: "Could not create card." });
-  }
-}
-
-export async function fetchCard(req, res) {
-  try {
-    const card = await getCardById(req.params.id);
-    if (!card) return res.status(404).json({ error: "Card not found." });
-    res.json({ card });
-  } catch (err) {
-    res.status(500).json({ error: "Could not fetch card." });
-  }
-}
-
-export async function searchByName(req, res) {
-  const { name } = req.query;
-  if (!name) return res.status(400).json({ error: "Name is required." });
-  try {
-    const cards = await findCardsByName(name);
-    res.json({ cards });
-  } catch (err) {
-    res.status(500).json({ error: "Could not search." });
-  }
-}
-
-export async function fillSquareHandler(req, res) {
-  const { id } = req.params;
-  const { squareIndex, personName } = req.body;
-
-  if (personName === undefined) {
-    return res.status(400).json({ error: "personName is required." });
-  }
-
-  try {
-    const result = await fillSquare(id, squareIndex, personName.trim());
-    if (!result) return res.status(404).json({ error: "Card not found." });
-
-    const { card, justGotBingo, justGotBlackout } = result;
-    res.json({ card, justGotBingo, justGotBlackout });
-  } catch (err) {
-    console.error("Error filling square:", err);
-    res.status(500).json({ error: "Could not update card." });
-  }
-}
-
-
-export async function leaderboard(req, res) {
-  const limit = req.query.full === "true" ? 1000 : 10;
-  try {
-    const board = await getLeaderboard(limit);
-    res.json({ leaderboard: board });
-  } catch (err) {
-    res.status(500).json({ error: "Could not fetch leaderboard." });
   }
 }

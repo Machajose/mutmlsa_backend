@@ -34,20 +34,25 @@ export async function initBingoTable() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     );
   `);
+  // Safe to run on every startup: adds the new columns only if missing.
+  await pool.query(`ALTER TABLE bingo_cards ADD COLUMN IF NOT EXISTS round TEXT`);
+  await pool.query(`ALTER TABLE bingo_cards ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT now()`);
+  await pool.query(`CREATE INDEX IF NOT EXISTS bingo_cards_round_idx ON bingo_cards (round)`);
 }
 
-export async function createCard(name) {
+// One card per name per round. Same name in the same round gets the same card back.
+export async function createCard(name, round) {
   const existing = await pool.query(
-    `SELECT * FROM bingo_cards WHERE name ILIKE $1 ORDER BY created_at DESC LIMIT 1`,
-    [name]
+    `SELECT * FROM bingo_cards WHERE LOWER(name) = LOWER($1) AND round = $2 ORDER BY created_at DESC LIMIT 1`,
+    [name, round]
   );
   if (existing.rows.length > 0) {
     return existing.rows[0];
   }
 
   const result = await pool.query(
-    `INSERT INTO bingo_cards (name, filled_squares) VALUES ($1, '{"12": "FREE"}') RETURNING *`,
-    [name]
+    `INSERT INTO bingo_cards (name, filled_squares, round) VALUES ($1, '{"12": "FREE"}', $2) RETURNING *`,
+    [name, round]
   );
   return result.rows[0];
 }
@@ -57,10 +62,11 @@ export async function getCardById(id) {
   return result.rows[0];
 }
 
-export async function findCardsByName(name) {
+// Only searches the current round — old rounds' cards are retired.
+export async function findCardsByName(name, round) {
   const result = await pool.query(
-    `SELECT * FROM bingo_cards WHERE name ILIKE $1 ORDER BY created_at DESC`,
-    [`%${name}%`]
+    `SELECT * FROM bingo_cards WHERE name ILIKE $1 AND round = $2 ORDER BY created_at DESC`,
+    [`%${name}%`, round]
   );
   return result.rows;
 }
@@ -77,9 +83,9 @@ export async function fillSquare(id, squareIndex, personName) {
   }
 
   const result = await pool.query(
-  `UPDATE bingo_cards SET filled_squares = $2, updated_at = now() WHERE id = $1 RETURNING *`,
-  [id, updated]
-);
+    `UPDATE bingo_cards SET filled_squares = $2, updated_at = now() WHERE id = $1 RETURNING *`,
+    [id, updated]
+  );
 
   const wasBingoBefore = hasBingo(card.filled_squares);
   const isBingoNow = hasBingo(updated);
@@ -93,8 +99,19 @@ export async function fillSquare(id, squareIndex, personName) {
   };
 }
 
-export async function getLeaderboard(limit = 10) {
-  const result = await pool.query(`SELECT id, name, filled_squares FROM bingo_cards`);
+export async function renameCard(id, newName) {
+  const result = await pool.query(
+    `UPDATE bingo_cards SET name = $2 WHERE id = $1 RETURNING *`,
+    [id, newName]
+  );
+  return result.rows[0];
+}
+
+export async function getLeaderboard(limit = 10, round) {
+  const result = await pool.query(
+    `SELECT id, name, filled_squares FROM bingo_cards WHERE round = $1`,
+    [round]
+  );
   return result.rows
     .map((c) => ({
       id: c.id,
@@ -105,11 +122,4 @@ export async function getLeaderboard(limit = 10) {
     }))
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
-}
-export async function renameCard(id, newName) {
-  const result = await pool.query(
-    `UPDATE bingo_cards SET name = $2 WHERE id = $1 RETURNING *`,
-    [id, newName]
-  );
-  return result.rows[0];
 }
