@@ -9,12 +9,18 @@ import { weekIdToRange, getWeekLabel } from "./periodId.js";
 //   • Weekly   = Monday 00:00 to Sunday 23:59, Nairobi time (same as Bingo's week)
 //   • Monthly  = the calendar month, Nairobi time
 //   • Semester = SEMESTER_START to SEMESTER_END (inclusive)
+//
+// Extras:
+//   • Cohorts: players claim their year of study (1–4) and get their own boards.
+//   • Defending champion: whoever received last week's prize can still top the
+//     board, but the weekly prize passes to the next best player.
 // =====================================================================
 
 // ---------------------------- SETTINGS -------------------------------
-const SEMESTER_START = "2026-09-01"; // first day counted — change if your semester started on another date
+const SEMESTER_START = "2026-11-01"; // everything starts fresh on this day (nothing earlier counts)
 const SEMESTER_END = "2026-12-05"; // last day counted (inclusive)
-const MIN_ACTIVE_WEEKS = 6; // weeks a player must be active in to qualify as semester leader
+const MIN_ACTIVE_WEEKS = 4;
+const LEVEL_WEIGHT = { 1: 0.85, 2: 0.92, 3: 1, 4: 1, none: 0.95 }; // by claimed year // weeks a player must be active in to qualify as semester leader
 const SPRINT_QUESTIONS = 15; // must match QUESTIONS_PER_ROUND in SpeedRound.jsx
 const BINGO_SQUARES = 24; // playable squares on a board (the FREE SPACE is not counted)
 // ---------------------------------------------------------------------
@@ -30,6 +36,12 @@ const SEM_END_MS = Date.parse(`${SEMESTER_END}T00:00:00+03:00`) + DAY_MS; // exc
 
 function weekIndexAt(ms) {
   return Math.floor((ms - WEEK0) / WEEK_MS);
+}
+
+// First full Monday-to-Sunday week that counts (a part-week at the start never gets a winner)
+function firstCountedWeek() {
+  const idx = weekIndexAt(SEM_START_MS);
+  return weekRange(idx).start >= SEM_START_MS ? idx : idx + 1;
 }
 
 function weekRange(index) {
@@ -75,11 +87,35 @@ async function ensureTable() {
       name TEXT NOT NULL,
       points NUMERIC NOT NULL,
       rounds INTEGER NOT NULL,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-      UNIQUE (period_type, period_key, place)
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    );
+  `);
+  // Upgrades for tables created by the first version — safe to run every time
+  await pool.query(`ALTER TABLE hall_of_fame_winners ADD COLUMN IF NOT EXISTS cohort INTEGER NOT NULL DEFAULT 0`);
+  await pool.query(`ALTER TABLE hall_of_fame_winners ADD COLUMN IF NOT EXISTS note TEXT`);
+  await pool.query(
+    `ALTER TABLE hall_of_fame_winners DROP CONSTRAINT IF EXISTS hall_of_fame_winners_period_type_period_key_place_key`
+  );
+  await pool.query(
+    `CREATE UNIQUE INDEX IF NOT EXISTS hall_of_fame_winners_unique
+     ON hall_of_fame_winners (period_type, period_key, cohort, place)`
+  );
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS hall_of_fame_players (
+      name_key TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      year INTEGER NOT NULL CHECK (year BETWEEN 1 AND 4),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     );
   `);
   tableReady = true;
+}
+
+async function loadPlayers() {
+  const res = await pool.query(`SELECT name_key, year FROM hall_of_fame_players`);
+  const map = new Map();
+  for (const r of res.rows) map.set(r.name_key, r.year);
+  return map;
 }
 
 // Turns every stored attempt into one "event": who, how many points (0–100), and when.
@@ -131,7 +167,17 @@ async function loadEvents(sinceMs) {
     });
   }
 
-  return events;
+  // Easier question sets earn slightly fewer points on the overall board, so a harder
+  // year is never out-scored just for playing easier questions. Year boards are unaffected
+  // (everyone in a year plays the same level).
+  const players = await loadPlayers();
+  for (const e of events) {
+    const y = players.get(e.key);
+    e.pts = e.pts * (LEVEL_WEIGHT[y] || LEVEL_WEIGHT.none);
+  }
+
+  // Nothing played before the official start counts
+  return events.filter((e) => e.at >= SEM_START_MS);
 }
 
 // Adds up points inside one time window and ranks everyone.
@@ -141,7 +187,7 @@ function standings(events, startMs, endMs) {
     if (e.at < startMs || e.at >= endMs) continue;
     let r = map.get(e.key);
     if (!r) {
-      r = { name: e.name, nameAt: e.at, points: 0, rounds: 0, weeks: new Set(), lastAt: 0 };
+      r = { key: e.key, name: e.name, nameAt: e.at, points: 0, rounds: 0, weeks: new Set(), lastAt: 0 };
       map.set(e.key, r);
     }
     r.points += e.pts;
@@ -156,6 +202,7 @@ function standings(events, startMs, endMs) {
 
   return [...map.values()]
     .map((r) => ({
+      key: r.key,
       name: r.name,
       points: Math.round(r.points * 10) / 10,
       rounds: r.rounds,
@@ -168,7 +215,43 @@ function standings(events, startMs, endMs) {
 }
 
 function publicRows(rows, limit) {
-  return rows.slice(0, limit).map(({ lastAt, ...rest }) => rest);
+  return rows.slice(0, limit).map(({ lastAt, key, ...rest }) => rest);
+}
+
+const YEARS = [1, 2, 3, 4];
+
+function eventsForYear(events, players, year) {
+  return events.filter((e) => players.get(e.key) === year);
+}
+
+function reRank(rows) {
+  return rows.map((r, i) => ({ ...r, rank: i + 1 }));
+}
+
+// Walks through every finished week in order and decides who gets the weekly PRIZE.
+// If last week's prize-winner tops the board again they are the "defending champion":
+// they keep their place on the leaderboard, but the prize goes to the next best player.
+function weeklyPrizeChain(events, toWeek) {
+  const out = [];
+  let prevPrizeKey = null;
+  for (let wk = firstCountedWeek(); wk < toWeek; wk++) {
+    const range = weekRange(wk);
+    const rows = standings(events, Math.max(range.start, SEM_START_MS), Math.min(range.end, SEM_END_MS));
+    if (rows.length === 0) {
+      prevPrizeKey = null; // nobody played, so nobody is "defending"
+      out.push({ wk, range, rows, prizeRows: [], defender: null });
+      continue;
+    }
+    let prizeRows = rows;
+    let defender = null;
+    if (prevPrizeKey && rows[0].key === prevPrizeKey && rows.length > 1) {
+      defender = rows[0];
+      prizeRows = reRank(rows.slice(1));
+    }
+    prevPrizeKey = prizeRows[0].key;
+    out.push({ wk, range, rows, prizeRows, defender });
+  }
+  return out;
 }
 
 function semesterRows(events) {
@@ -186,6 +269,16 @@ function semesterRows(events) {
 
 let cache = { at: 0, data: null };
 
+function cohortBoards(events, players, startMs, endMs, limit, semester = false) {
+  const out = {};
+  for (const y of YEARS) {
+    const evs = eventsForYear(events, players, y);
+    const rows = semester ? semesterRows(evs) : standings(evs, startMs, endMs);
+    out[y] = publicRows(rows, limit);
+  }
+  return out;
+}
+
 export async function getHallOfFame({ full = false } = {}) {
   if (!full && cache.data && Date.now() - cache.at < 30000) return cache.data;
 
@@ -193,21 +286,26 @@ export async function getHallOfFame({ full = false } = {}) {
   const now = Date.now();
   const wk = weekIndexAt(now);
   const thisWeek = weekRange(wk);
-  const lastWeek = weekRange(wk - 1);
   const month = monthRangeAt(now);
 
-  const events = await loadEvents(Math.min(SEM_START_MS, month.start, lastWeek.start));
-
-  const weekRows = standings(events, thisWeek.start, thisWeek.end);
-  const lastWeekRows = standings(events, lastWeek.start, lastWeek.end);
-  const monthRows = standings(events, month.start, month.end);
-  const semRows = semesterRows(events);
+  const events = await loadEvents(Math.min(SEM_START_MS, month.start, weekRange(wk - 1).start));
+  const players = await loadPlayers();
   const limit = full ? 1000 : 10;
 
+  const weekRows = standings(events, thisWeek.start, thisWeek.end);
+  const monthRows = standings(events, month.start, month.end);
+  const semRows = semesterRows(events);
+
+  // Last week's prize winner (after the defending-champion rule) and this week's defender
+  const chain = weeklyPrizeChain(events, wk);
+  const last = chain.find((c) => c.wk === wk - 1);
+  const lastPrize = last && last.prizeRows[0] ? last.prizeRows[0] : null;
+  const defending = lastPrize && weekRows[0] && weekRows[0].key === lastPrize.key ? weekRows[0].name : null;
+
   const winners = await pool.query(
-    `SELECT period_type, period_key, period_label, period_start, place, name, points
+    `SELECT period_type, period_key, period_label, period_start, cohort, place, name, points, note
      FROM hall_of_fame_winners
-     ORDER BY period_start DESC, place ASC`
+     ORDER BY period_start DESC, cohort ASC, place ASC`
   );
   const past = { weeks: [], months: [], semesters: [] };
   const bucket = { week: past.weeks, month: past.months, semester: past.semesters };
@@ -216,53 +314,142 @@ export async function getHallOfFame({ full = false } = {}) {
     if (!list) continue;
     let entry = list.find((x) => x.key === r.period_key);
     if (!entry) {
-      entry = { key: r.period_key, label: r.period_label, winners: [] };
+      entry = { key: r.period_key, label: r.period_label, winners: [], note: null, cohorts: {} };
       list.push(entry);
     }
-    entry.winners.push({ place: r.place, name: r.name, points: Number(r.points) });
+    const item = { place: r.place, name: r.name, points: Number(r.points) };
+    if (r.cohort === 0) {
+      entry.winners.push(item);
+      if (r.place === 1 && r.note) entry.note = r.note;
+    } else {
+      (entry.cohorts[r.cohort] = entry.cohorts[r.cohort] || []).push(item);
+    }
   }
   past.weeks = past.weeks.slice(0, 8);
   past.months = past.months.slice(0, 6);
 
   const data = {
-    week: { label: getWeekLabel(`week-${wk}`), leaders: publicRows(weekRows, limit) },
+    week: {
+      label: getWeekLabel(`week-${wk}`),
+      defending,
+      leaders: publicRows(weekRows, limit),
+      cohorts: cohortBoards(events, players, thisWeek.start, thisWeek.end, limit),
+    },
     lastWeek: {
       label: getWeekLabel(`week-${wk - 1}`),
-      winner: lastWeekRows[0]
-        ? { name: lastWeekRows[0].name, points: lastWeekRows[0].points }
-        : null,
+      winner: lastPrize ? { name: lastPrize.name, points: lastPrize.points } : null,
+      note: last && last.defender ? `${last.defender.name} had the most points but was the defending champion, so the prize passed on.` : null,
     },
-    month: { label: month.label, leaders: publicRows(monthRows, limit) },
+    month: {
+      label: month.label,
+      leaders: publicRows(monthRows, limit),
+      cohorts: cohortBoards(events, players, month.start, month.end, limit),
+    },
     semester: {
       label: `${formatDay(SEM_START_MS)} – ${formatDay(SEM_END_MS - 1)}`,
       endsAt: new Date(SEM_END_MS).toISOString(),
       finished: now >= SEM_END_MS,
       minWeeks: MIN_ACTIVE_WEEKS,
       leaders: publicRows(semRows, limit),
+      cohorts: cohortBoards(events, players, SEM_START_MS, SEM_END_MS, limit, true),
     },
     past,
   };
 
-  if (!full) cache = { at: Date.now(), data };
+  if (full) {
+    const list = await pool.query(`SELECT name, year FROM hall_of_fame_players ORDER BY year, name`);
+    data.players = list.rows;
+  } else {
+    cache = { at: Date.now(), data };
+  }
   return data;
+}
+
+// ------------------------- year of study ----------------------------
+
+export async function claimYear(rawName, rawYear) {
+  await ensureTable();
+  const name = String(rawName || "").trim();
+  const year = Number(rawYear);
+  if (!name || name.length > 60) return { status: 400, error: "Please enter your name (up to 60 characters)." };
+  if (!Number.isInteger(year) || year < 1 || year > 4) return { status: 400, error: "Please pick a year from 1 to 4." };
+
+  const key = name.toLowerCase();
+  const inserted = await pool.query(
+    `INSERT INTO hall_of_fame_players (name_key, name, year) VALUES ($1, $2, $3)
+     ON CONFLICT (name_key) DO NOTHING RETURNING year`,
+    [key, name, year]
+  );
+
+  if (inserted.rowCount === 0) {
+    const existing = await pool.query(`SELECT year FROM hall_of_fame_players WHERE name_key = $1`, [key]);
+    const current = existing.rows[0] ? existing.rows[0].year : null;
+    if (current === year) return { status: 200, ok: true, year, already: true };
+    return {
+      status: 409,
+      error: `"${name}" is already set to Year ${current}. Ask a committee member if it needs changing.`,
+    };
+  }
+
+  // Has this name actually played anything? Helps people notice a spelling mismatch.
+  const seen = await pool.query(
+    `SELECT
+       (SELECT COUNT(*) FROM quiz_attempts WHERE LOWER(TRIM(name)) = $1) +
+       (SELECT COUNT(*) FROM sprint_attempts WHERE LOWER(TRIM(name)) = $1) +
+       (SELECT COUNT(*) FROM bingo_cards WHERE LOWER(TRIM(name)) = $1) AS n`,
+    [key]
+  );
+  cache = { at: 0, data: null };
+  return { status: 200, ok: true, year, known: Number(seen.rows[0].n) > 0 };
+}
+
+// Committee only: set or change someone's year (year = 0 removes it)
+export async function setPlayerYear(rawName, rawYear) {
+  await ensureTable();
+  const name = String(rawName || "").trim();
+  const year = Number(rawYear);
+  if (!name) return { status: 400, error: "name is required." };
+  const key = name.toLowerCase();
+  if (year === 0) {
+    await pool.query(`DELETE FROM hall_of_fame_players WHERE name_key = $1`, [key]);
+  } else if (Number.isInteger(year) && year >= 1 && year <= 4) {
+    await pool.query(
+      `INSERT INTO hall_of_fame_players (name_key, name, year) VALUES ($1, $2, $3)
+       ON CONFLICT (name_key) DO UPDATE SET year = EXCLUDED.year, name = EXCLUDED.name`,
+      [key, name, year]
+    );
+  } else {
+    return { status: 400, error: "year must be 1–4, or 0 to remove." };
+  }
+  cache = { at: 0, data: null };
+  return { status: 200, ok: true };
 }
 
 // ------------------- saving winners + announcing ---------------------
 
-async function saveWinners(type, key, label, startMs, rows) {
+async function saveWinners(type, key, label, startMs, cohort, rows, note = null) {
   const top = rows.slice(0, 3);
   let newlySaved = false;
   for (const r of top) {
     const res = await pool.query(
-      `INSERT INTO hall_of_fame_winners (period_type, period_key, period_label, period_start, place, name, points, rounds)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-       ON CONFLICT (period_type, period_key, place) DO NOTHING
+      `INSERT INTO hall_of_fame_winners (period_type, period_key, period_label, period_start, cohort, place, name, points, rounds, note)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+       ON CONFLICT (period_type, period_key, cohort, place) DO NOTHING
        RETURNING id`,
-      [type, key, label, new Date(startMs), r.rank, r.name, r.points, r.rounds]
+      [type, key, label, new Date(startMs), cohort, r.rank, r.name, r.points, r.rounds, r.rank === 1 ? note : null]
     );
     if (res.rowCount > 0 && r.rank === 1) newlySaved = true;
   }
   return newlySaved ? top[0] : null;
+}
+
+async function saveCohorts(type, key, label, startMs, events, players, startClip, endClip, semester = false) {
+  for (const y of YEARS) {
+    const evs = eventsForYear(events, players, y);
+    let rows = semester ? semesterRows(evs).filter((r) => r.qualified) : standings(evs, startClip, endClip);
+    if (semester) rows = reRank(rows);
+    if (rows.length > 0) await saveWinners(type, key, label, startMs, y, rows);
+  }
 }
 
 async function announce(title, body) {
@@ -280,20 +467,26 @@ export async function runHallOfFameCheck() {
   await ensureTable();
   const now = Date.now();
   const events = await loadEvents(SEM_START_MS);
+  const players = await loadPlayers();
   const saved = [];
 
-  // Weeks
-  const currentWeek = weekIndexAt(now);
-  for (let wk = weekIndexAt(SEM_START_MS); wk < currentWeek; wk++) {
-    const range = weekRange(wk);
-    const rows = standings(events, Math.max(range.start, SEM_START_MS), Math.min(range.end, SEM_END_MS));
-    if (rows.length === 0) continue;
-    const label = getWeekLabel(`week-${wk}`);
-    const winner = await saveWinners("week", `week-${wk}`, label, range.start, rows);
+  // Weeks (with the defending-champion rule)
+  const chain = weeklyPrizeChain(events, weekIndexAt(now));
+  for (const c of chain) {
+    if (c.prizeRows.length === 0) continue;
+    const label = getWeekLabel(`week-${c.wk}`);
+    const note = c.defender
+      ? `${c.defender.name} had the most points but was the defending champion, so the prize passed on.`
+      : null;
+    const winner = await saveWinners("week", `week-${c.wk}`, label, c.range.start, 0, c.prizeRows, note);
+    await saveCohorts(
+      "week", `week-${c.wk}`, label, c.range.start, events, players,
+      Math.max(c.range.start, SEM_START_MS), Math.min(c.range.end, SEM_END_MS)
+    );
     if (winner) {
       saved.push(`week ${label}`);
-      if (now - range.end < 7 * DAY_MS) {
-        await announce("🏆 Weekly champion", `${winner.name} topped last week with ${winner.points} points. See the Hall of Fame!`);
+      if (now - c.range.end < 7 * DAY_MS) {
+        await announce("🏆 Weekly champion", `${winner.name} won last week with ${winner.points} points. See the Hall of Fame!`);
       }
     }
   }
@@ -301,9 +494,12 @@ export async function runHallOfFameCheck() {
   // Months (only fully finished ones)
   let cursor = monthRangeAt(SEM_START_MS);
   while (cursor.end <= now) {
-    const rows = standings(events, Math.max(cursor.start, SEM_START_MS), Math.min(cursor.end, SEM_END_MS));
+    const s = Math.max(cursor.start, SEM_START_MS);
+    const e = Math.min(cursor.end, SEM_END_MS);
+    const rows = standings(events, s, e);
     if (rows.length > 0) {
-      const winner = await saveWinners("month", cursor.key, cursor.label, cursor.start, rows);
+      const winner = await saveWinners("month", cursor.key, cursor.label, cursor.start, 0, rows);
+      await saveCohorts("month", cursor.key, cursor.label, cursor.start, events, players, s, e);
       if (winner) {
         saved.push(`month ${cursor.label}`);
         if (now - cursor.end < 7 * DAY_MS) {
@@ -317,10 +513,12 @@ export async function runHallOfFameCheck() {
 
   // Semester
   if (now >= SEM_END_MS) {
-    const rows = semesterRows(events).filter((r) => r.qualified);
+    const rows = reRank(semesterRows(events).filter((r) => r.qualified));
     if (rows.length > 0) {
       const label = `${formatDay(SEM_START_MS)} – ${formatDay(SEM_END_MS - 1)}`;
-      const winner = await saveWinners("semester", `semester-${SEMESTER_END}`, label, SEM_START_MS, rows);
+      const key = `semester-${SEMESTER_END}`;
+      const winner = await saveWinners("semester", key, label, SEM_START_MS, 0, rows);
+      await saveCohorts("semester", key, label, SEM_START_MS, events, players, SEM_START_MS, SEM_END_MS, true);
       if (winner) {
         saved.push("semester");
         if (now - SEM_END_MS < 7 * DAY_MS) {
