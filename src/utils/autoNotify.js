@@ -2,6 +2,7 @@ import pool from "../config/db.js";
 import { getAllSubscriptions } from "../models/PushSubscription.js";
 import { broadcastToOne } from "./sendPush.js";
 import { getCurrentPeriodId, getCurrentWeekId } from "./periodId.js";
+import { runHallOfFameCheck } from "./hallOfFame.js";
 
 const INACTIVITY_DAYS = 3;
 const NUDGE_COOLDOWN_HOURS = 24; // "come play" nudges at most once a day per person
@@ -149,5 +150,14 @@ export async function runAutoCheck() {
     }
   }
 
-  return { checked: subs.length, notificationsSent: sent };
+  // Saves finished weeks/months/semester winners and announces new champions.
+  // Wrapped so a problem here can never stop the normal notifications above.
+  let hallOfFame = null;
+  try {
+    hallOfFame = await runHallOfFameCheck();
+  } catch (err) {
+    console.error("Hall of Fame check failed:", err);
+  }
+
+  return { checked: subs.length, notificationsSent: sent, hallOfFame };
 }
