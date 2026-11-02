@@ -12,7 +12,7 @@ import sprintRoutes from "./routes/Sprint.routes.js";
 import pushRoutes from "./routes/push.routes.js"
 import notifyRoutes from "./routes/notify.routes.js";
 import eventsRoutes from "./routes/Event.route.js";
-   import hallOfFameRoutes from "./routes/hallOfFame.routes.js";
+import hallOfFameRoutes from "./routes/hallOfFame.routes.js";
 
 const app = express();
 
