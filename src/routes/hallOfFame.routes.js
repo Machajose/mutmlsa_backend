@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { getHallOfFame } from "../utils/hallOfFame.js";
+import { formLimiter } from "../middleware/rateLimiter.js";
+import { getHallOfFame, claimYear, setPlayerYear } from "../utils/hallOfFame.js";
 
 const router = Router();
 
-// Public: top 10 for this week, this month and the semester, plus past winners
+function isAdmin(req) {
+  return req.header("x-admin-password") === process.env.ADMIN_PASSWORD;
+}
+
+// Public: top 10 for this week, month and semester (overall + each year), plus past winners
 router.get("/", async (req, res) => {
   try {
     res.json(await getHallOfFame());
@@ -13,16 +18,41 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Admin only: the complete standings (everyone, not just the top 10)
-router.get("/admin", async (req, res) => {
-  if (req.header("x-admin-password") !== process.env.ADMIN_PASSWORD) {
-    return res.status(401).json({ error: "Unauthorized." });
+// Public: a player claims their year of study (1–4). Can be done at any time.
+router.post("/claim", formLimiter, async (req, res) => {
+  try {
+    const { name, year } = req.body || {};
+    const result = await claimYear(name, year);
+    const { status, ...body } = result;
+    res.status(status).json(body);
+  } catch (err) {
+    console.error("Error claiming year:", err);
+    res.status(500).json({ error: "Could not save your year." });
   }
+});
+
+// Admin only: the complete standings (everyone) and the list of claimed years
+router.get("/admin", async (req, res) => {
+  if (!isAdmin(req)) return res.status(401).json({ error: "Unauthorized." });
   try {
     res.json(await getHallOfFame({ full: true }));
   } catch (err) {
     console.error("Error loading admin Hall of Fame:", err);
     res.status(500).json({ error: "Could not load the Hall of Fame." });
+  }
+});
+
+// Admin only: set or change someone's year (year 0 removes it)
+router.post("/admin/year", async (req, res) => {
+  if (!isAdmin(req)) return res.status(401).json({ error: "Unauthorized." });
+  try {
+    const { name, year } = req.body || {};
+    const result = await setPlayerYear(name, year);
+    const { status, ...body } = result;
+    res.status(status).json(body);
+  } catch (err) {
+    console.error("Error setting year:", err);
+    res.status(500).json({ error: "Could not update the year." });
   }
 });
 

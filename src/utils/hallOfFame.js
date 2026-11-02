@@ -19,7 +19,7 @@ import { weekIdToRange, getWeekLabel } from "./periodId.js";
 // ---------------------------- SETTINGS -------------------------------
 const SEMESTER_START = "2026-11-01"; // everything starts fresh on this day (nothing earlier counts)
 const SEMESTER_END = "2026-12-05"; // last day counted (inclusive)
-const MIN_ACTIVE_WEEKS = 4;
+const MIN_ACTIVE_WEEKS = 2;
 const LEVEL_WEIGHT = { 1: 0.85, 2: 0.92, 3: 1, 4: 1, none: 0.95 }; // by claimed year // weeks a player must be active in to qualify as semester leader
 const SPRINT_QUESTIONS = 15; // must match QUESTIONS_PER_ROUND in SpeedRound.jsx
 const BINGO_SQUARES = 24; // playable squares on a board (the FREE SPACE is not counted)
