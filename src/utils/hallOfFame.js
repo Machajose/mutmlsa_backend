@@ -387,6 +387,7 @@ export async function claimYear(rawName, rawYear) {
     if (current === year) return { status: 200, ok: true, year, already: true };
     return {
       status: 409,
+      year: current,
       error: `"${name}" is already set to Year ${current}. Ask a committee member if it needs changing.`,
     };
   }
