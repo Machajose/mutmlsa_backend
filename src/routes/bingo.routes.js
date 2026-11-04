@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { formLimiter } from "../middleware/rateLimiter.js";
+import { adminAuth } from "../middleware/adminAuth.js";
+import { adminListCards, adminClearCard, adminDeleteCard } from "../controllers/bingoAdmin.controller.js";
 import {
   newCard,
   fetchCard,
@@ -10,6 +12,11 @@ import {
 } from "../controllers/bingo.controller.js";
 
 const router = Router();
+
+// Committee review (admin password needed). Must stay above the "/:id" routes.
+router.get("/admin/cards", adminAuth, adminListCards);
+router.post("/admin/cards/:id/clear", adminAuth, adminClearCard);
+router.delete("/admin/cards/:id", adminAuth, adminDeleteCard);
 
 router.post("/", formLimiter, newCard);
 router.get("/leaderboard", leaderboard);

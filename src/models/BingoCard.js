@@ -37,6 +37,8 @@ export async function initBingoTable() {
   // Safe to run on every startup: adds the new columns only if missing.
   await pool.query(`ALTER TABLE bingo_cards ADD COLUMN IF NOT EXISTS round TEXT`);
   await pool.query(`ALTER TABLE bingo_cards ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT now()`);
+  // When each name was entered, so the committee can spot boxes filled suspiciously fast.
+  await pool.query(`ALTER TABLE bingo_cards ADD COLUMN IF NOT EXISTS fill_log JSONB NOT NULL DEFAULT '[]'`);
   await pool.query(`CREATE INDEX IF NOT EXISTS bingo_cards_round_idx ON bingo_cards (round)`);
 }
 
@@ -82,9 +84,13 @@ export async function fillSquare(id, squareIndex, personName) {
     delete updated[squareIndex];
   }
 
+  // Keep a timestamp for every name entered (a cleared box drops its entries)
+  let log = Array.isArray(card.fill_log) ? card.fill_log.filter((e) => e && Number(e.i) !== Number(squareIndex)) : [];
+  if (personName) log.push({ i: Number(squareIndex), n: personName, t: new Date().toISOString() });
+
   const result = await pool.query(
-    `UPDATE bingo_cards SET filled_squares = $2, updated_at = now() WHERE id = $1 RETURNING *`,
-    [id, updated]
+    `UPDATE bingo_cards SET filled_squares = $2, fill_log = $3::jsonb, updated_at = now() WHERE id = $1 RETURNING *`,
+    [id, updated, JSON.stringify(log)]
   );
 
   const wasBingoBefore = hasBingo(card.filled_squares);

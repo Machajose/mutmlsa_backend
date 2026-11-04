@@ -69,7 +69,23 @@ export async function fillSquareHandler(req, res) {
       });
     }
 
-    const result = await fillSquare(id, index, personName.trim());
+    // Rule checks: no using your own name, and no name twice on one card.
+    const clean = personName.trim();
+    if (clean) {
+      const norm = (v) => String(v || "").trim().toLowerCase().replace(/\s+/g, " ");
+      if (norm(clean) === norm(existing.name)) {
+        return res.status(400).json({ error: "That's your own name. Every box needs a different person." });
+      }
+      const filled = existing.filled_squares || {};
+      const dup = Object.entries(filled).some(
+        ([i, v]) => Number(i) !== index && Number(i) !== 12 && norm(v) === norm(clean)
+      );
+      if (dup) {
+        return res.status(400).json({ error: `You've already used "${clean}" in another box. Every box needs a different person.` });
+      }
+    }
+
+    const result = await fillSquare(id, index, clean);
     if (!result) return res.status(404).json({ error: "Card not found." });
 
     const { card, justGotBingo, justGotBlackout } = result;
