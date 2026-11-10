@@ -302,6 +302,19 @@ export async function getHallOfFame({ full = false } = {}) {
   const lastPrize = last && last.prizeRows[0] ? last.prizeRows[0] : null;
   const defending = lastPrize && weekRows[0] && weekRows[0].key === lastPrize.key ? weekRows[0].name : null;
 
+  // Last week's leader in each year (live, so a late claim is reflected straight away)
+  const lastRange = weekRange(wk - 1);
+  const lastCohorts = {};
+  for (const y of YEARS) {
+    const rows = standings(
+      eventsForYear(events, players, y),
+      Math.max(lastRange.start, SEM_START_MS),
+      lastRange.end
+    );
+    const top = publicRows(rows, 1)[0];
+    lastCohorts[y] = top ? { name: top.name, points: top.points } : null;
+  }
+
   const winners = await pool.query(
     `SELECT period_type, period_key, period_label, period_start, cohort, place, name, points, note
      FROM hall_of_fame_winners
@@ -338,6 +351,7 @@ export async function getHallOfFame({ full = false } = {}) {
     lastWeek: {
       label: getWeekLabel(`week-${wk - 1}`),
       winner: lastPrize ? { name: lastPrize.name, points: lastPrize.points } : null,
+      cohorts: wk - 1 >= firstCountedWeek() ? lastCohorts : {},
       note: last && last.defender ? `${last.defender.name} had the most points but was the defending champion, so the prize passed on.` : null,
     },
     month: {
@@ -444,12 +458,26 @@ async function saveWinners(type, key, label, startMs, cohort, rows, note = null)
   return newlySaved ? top[0] : null;
 }
 
+// Year winners stay open for a week after a period ends, so players who claim their year a
+// little late still count. After that they are locked in.
+const COHORT_GRACE_MS = 7 * DAY_MS;
+
 async function saveCohorts(type, key, label, startMs, events, players, startClip, endClip, semester = false) {
+  const perYear = {};
   for (const y of YEARS) {
     const evs = eventsForYear(events, players, y);
     let rows = semester ? semesterRows(evs).filter((r) => r.qualified) : standings(evs, startClip, endClip);
     if (semester) rows = reRank(rows);
-    if (rows.length > 0) await saveWinners(type, key, label, startMs, y, rows);
+    perYear[y] = rows;
+  }
+  if (Date.now() - endClip < COHORT_GRACE_MS) {
+    await pool.query(
+      `DELETE FROM hall_of_fame_winners WHERE period_type = $1 AND period_key = $2 AND cohort > 0`,
+      [type, key]
+    );
+  }
+  for (const y of YEARS) {
+    if (perYear[y].length > 0) await saveWinners(type, key, label, startMs, y, perYear[y]);
   }
 }
 
