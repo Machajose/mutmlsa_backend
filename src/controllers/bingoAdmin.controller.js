@@ -1,5 +1,5 @@
 import pool from "../config/db.js";
-import { getCurrentWeekId, getWeekLabel } from "../utils/periodId.js";
+import { confirmCard } from "../models/BingoCard.js";
 
 const FAST_MS = 30000; // boxes filled closer together than this look rushed
 
@@ -49,6 +49,10 @@ function analyse(card) {
     id: card.id,
     name: card.name,
     round: card.round,
+    cardNo: /^card-(\d+)$/.test(card.round || "") ? Number(card.round.slice(5)) : null,
+    status: card.status || "active",
+    completedAt: card.completed_at,
+    confirmedAt: card.confirmed_at,
     filledCount: squares.length,
     hasTiming: timed.length > 0,
     spanSec,
@@ -59,29 +63,40 @@ function analyse(card) {
   };
 }
 
+// Cards waiting for a decision come first, then cards in progress, then recently confirmed ones
 export async function adminListCards(req, res) {
   try {
-    const wanted = String(req.query.round || "");
-    const round = /^week-\d+$/.test(wanted) ? wanted : getCurrentWeekId();
-
-    const cardsRes = await pool.query(`SELECT * FROM bingo_cards WHERE round = $1`, [round]);
-    const roundsRes = await pool.query(`SELECT DISTINCT round FROM bingo_cards WHERE round LIKE 'week-%'`);
-
-    const rounds = roundsRes.rows
-      .map((r) => r.round)
-      .filter((r) => /^week-\d+$/.test(r))
-      .sort((a, b) => Number(b.slice(5)) - Number(a.slice(5)))
-      .map((r) => ({ round: r, label: getWeekLabel(r) }));
-    if (!rounds.some((r) => r.round === round)) rounds.unshift({ round, label: getWeekLabel(round) });
-
+    const cardsRes = await pool.query(
+      `SELECT * FROM bingo_cards
+        WHERE round LIKE 'card-%'
+          AND (status IN ('pending', 'active')
+               OR (status = 'confirmed' AND confirmed_at > now() - interval '14 days'))`
+    );
+    const order = { pending: 0, active: 1, confirmed: 2 };
     const cards = cardsRes.rows
       .map(analyse)
-      .sort((a, b) => b.flags.length - a.flags.length || b.filledCount - a.filledCount);
-
-    res.json({ round, label: getWeekLabel(round), rounds, cards });
+      .sort(
+        (a, b) =>
+          order[a.status] - order[b.status] ||
+          b.flags.length - a.flags.length ||
+          b.filledCount - a.filledCount
+      );
+    res.json({ cards });
   } catch (err) {
     console.error("Error listing bingo cards for review:", err);
     res.status(500).json({ error: "Could not load the cards." });
+  }
+}
+
+// Confirms a finished card, so the player can be given their next one
+export async function adminConfirmCard(req, res) {
+  try {
+    const card = await confirmCard(req.params.id);
+    if (!card) return res.status(404).json({ error: "That card is not waiting for confirmation." });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("Error confirming bingo card:", err);
+    res.status(500).json({ error: "Could not confirm the card." });
   }
 }
 
@@ -89,7 +104,7 @@ export async function adminListCards(req, res) {
 export async function adminClearCard(req, res) {
   try {
     const result = await pool.query(
-      `UPDATE bingo_cards SET filled_squares = '{"12": "FREE"}', fill_log = '[]'::jsonb, updated_at = now() WHERE id = $1 RETURNING id`,
+      `UPDATE bingo_cards SET filled_squares = '{"12": "FREE"}', fill_log = '[]'::jsonb, status = 'active', completed_at = NULL, confirmed_at = NULL, updated_at = now() WHERE id = $1 RETURNING id`,
       [req.params.id]
     );
     if (result.rowCount === 0) return res.status(404).json({ error: "Card not found." });

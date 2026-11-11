@@ -14,7 +14,8 @@ export async function newCard(req, res) {
     return res.status(400).json({ error: "Name is required." });
   }
   try {
-    const card = await createCard(name.trim(), getCurrentWeekId());
+    // Gives the player their current card, or the next one if their last was confirmed
+    const card = await createCard(name.trim());
     res.status(201).json({ card });
   } catch (err) {
     console.error("Error creating bingo card:", err);
@@ -37,7 +38,7 @@ export async function searchByName(req, res) {
   const { name } = req.query;
   if (!name) return res.status(400).json({ error: "Name is required." });
   try {
-    const cards = await findCardsByName(name, getCurrentWeekId());
+    const cards = await findCardsByName(name);
     res.json({ cards });
   } catch (err) {
     res.status(500).json({ error: "Could not search." });
@@ -61,11 +62,25 @@ export async function fillSquareHandler(req, res) {
     const existing = await getCardById(id);
     if (!existing) return res.status(404).json({ error: "Card not found." });
 
-    // A card from a finished round can no longer be edited.
-    if (existing.round !== getCurrentWeekId()) {
+    // Old weekly cards from finished weeks are closed for good.
+    const isOldWeekly = !/^card-\d+$/.test(existing.round || "") && existing.round !== getCurrentWeekId();
+    if (isOldWeekly) {
       return res.status(409).json({
         expired: true,
-        error: "This round has ended — a new board is live. Start a fresh card.",
+        error: "That card is from an earlier week and is closed. Tap Start to get your card.",
+      });
+    }
+    // A finished card waits for the committee, and a confirmed one is done.
+    if (existing.status === "pending") {
+      return res.status(409).json({
+        locked: true,
+        error: "This card is complete and waiting for the committee to confirm it.",
+      });
+    }
+    if (existing.status === "confirmed") {
+      return res.status(409).json({
+        locked: true,
+        error: "This card is confirmed. Tap \"Get my next card\" to continue.",
       });
     }
 
@@ -100,7 +115,7 @@ export async function leaderboard(req, res) {
   const limit = req.query.full === "true" ? 1000 : 10;
   const round = getCurrentWeekId();
   try {
-    const board = await getLeaderboard(limit, round);
+    const board = await getLeaderboard(limit);
     res.json({ leaderboard: board, currentRound: round });
   } catch (err) {
     res.status(500).json({ error: "Could not fetch leaderboard." });

@@ -150,21 +150,42 @@ async function loadEvents(sinceMs) {
     });
   }
 
-  // Bingo: one card per person per week. It counts in the week it belongs to.
-  const bingo = await pool.query(`SELECT name, filled_squares, round FROM bingo_cards WHERE round LIKE 'week-%'`);
+  // Bingo. Old weekly cards count in the week they belong to. Newer cards last until they are
+  // finished, so their boxes are counted in the week each box was filled.
+  const bingo = await pool.query(
+    `SELECT name, filled_squares, fill_log, round FROM bingo_cards WHERE round LIKE 'week-%' OR round LIKE 'card-%'`
+  );
   for (const r of bingo.rows) {
-    const range = weekIdToRange(r.round);
-    if (!range) continue;
-    const at = range.start.getTime();
-    if (at < sinceMs) continue;
-    const filled = Math.max(0, Object.keys(r.filled_squares || {}).length - 1); // minus FREE SPACE
-    if (filled === 0) continue;
-    events.push({
-      key: String(r.name).trim().toLowerCase(),
-      name: String(r.name).trim(),
-      pts: Math.min(100, (filled / BINGO_SQUARES) * 100),
-      at,
-    });
+    const key = String(r.name).trim().toLowerCase();
+    const name = String(r.name).trim();
+    const filledSquares = r.filled_squares || {};
+
+    if (/^week-/.test(r.round)) {
+      const range = weekIdToRange(r.round);
+      if (!range) continue;
+      const at = range.start.getTime();
+      if (at < sinceMs) continue;
+      const filled = Math.max(0, Object.keys(filledSquares).length - 1); // minus FREE SPACE
+      if (filled === 0) continue;
+      events.push({ key, name, pts: Math.min(100, (filled / BINGO_SQUARES) * 100), at });
+      continue;
+    }
+
+    const log = Array.isArray(r.fill_log) ? r.fill_log : [];
+    const byWeek = new Map();
+    for (const e of log) {
+      if (!e || filledSquares[e.i] === undefined) continue; // box was cleared since
+      const t = Date.parse(e.t);
+      if (Number.isNaN(t)) continue;
+      const wk = weekIndexAt(t);
+      const g = byWeek.get(wk) || { count: 0, first: t };
+      g.count += 1;
+      g.first = Math.min(g.first, t);
+      byWeek.set(wk, g);
+    }
+    for (const g of byWeek.values()) {
+      events.push({ key, name, pts: Math.min(100, (g.count / BINGO_SQUARES) * 100), at: g.first });
+    }
   }
 
   // Easier question sets earn slightly fewer points on the overall board, so a harder

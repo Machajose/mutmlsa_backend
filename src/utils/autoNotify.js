@@ -3,6 +3,7 @@ import { getAllSubscriptions } from "../models/PushSubscription.js";
 import { broadcastToOne } from "./sendPush.js";
 import { getCurrentPeriodId, getCurrentWeekId } from "./periodId.js";
 import { runHallOfFameCheck } from "./hallOfFame.js";
+import { getLeaderboard } from "../models/BingoCard.js";
 
 const INACTIVITY_DAYS = 3;
 const NUDGE_COOLDOWN_HOURS = 24; // "come play" nudges at most once a day per person
@@ -25,18 +26,10 @@ async function ensureColumns() {
   columnsReady = true;
 }
 
-async function getBingoRanking(round) {
-  const result = await pool.query(
-    `SELECT id, name, filled_squares, updated_at FROM bingo_cards WHERE round = $1`,
-    [round]
-  );
-  return result.rows
-    .map((c) => ({
-      name: c.name,
-      score: Object.keys(c.filled_squares || {}).length,
-      updatedAt: c.updated_at,
-    }))
-    .sort((a, b) => b.score - a.score);
+async function getBingoRanking() {
+  // This week's boxes, added up across each player's cards
+  const board = await getLeaderboard(1000);
+  return board.map((e) => ({ name: e.name, score: e.score, updatedAt: e.updatedAt }));
 }
 
 async function getAttemptRanking(table, round) {
@@ -77,7 +70,7 @@ export async function runAutoCheck() {
 
   const subs = await getAllSubscriptions();
   const rankings = {
-    bingo: await getBingoRanking(bingoRound),
+    bingo: await getBingoRanking(),
     quiz: await getAttemptRanking("quiz_attempts", quizRound),
     sprint: await getAttemptRanking("sprint_attempts", sprintRound),
   };
